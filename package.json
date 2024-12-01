@@ -1,0 +1,26 @@
+{
+  "name": "iosappaccessautomation",
+  "version": "1.0.0",
+  "description": " iOS App Access Automation",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AungThiha/iOSAppAccessAutomation.git"
+  },
+  "keywords": [
+    "automation",
+    "iOS"
+  ],
+  "author": "Aung Thiha",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AungThiha/iOSAppAccessAutomation/issues"
+  },
+  "homepage": "https://github.com/AungThiha/iOSAppAccessAutomation#readme",
+  "dependencies": {
+    "express": "^4.21.1"
+  }
+}
