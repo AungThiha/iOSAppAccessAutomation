@@ -3,7 +3,9 @@
 
 ## Background
 
-Allowing users to download an iOS app from Firebase is a very complicated process. When a user registers their device with Firebase to request access to the app, it can take up to 24 hours for developers to complete the necessary work to allow the users to download the app, especially when there’s a timezone difference.
+Apple restricts devices from installing and using apps from outside its official app market, App Store, without establishing a form of trust between the device and the app’s developer through the Apple Developer Program. Firebase simplifies this process.
+
+However, even with Firebase, allowing users to download an iOS app from Firebase is still a very complicated process. When a user registers their device with Firebase to request access to the app, it can take up to 24 hours for developers to complete the necessary work to allow the users to download the app, especially when there’s a timezone difference.
 
 This project aims to solve this problem by automating the work required on the developer’s side to grant access to the app after a user registers their device with Firebase.
 
