@@ -15,7 +15,8 @@ Project's webiste -> https://iosappaccessautomation-9db62b5fb979.herokuapp.com/
 
 ## Status
 
-This project will start on 16 Dec 2024.
+- This project will start on **16 Dec 2024**.
+- Expected completion date will posted on **18 Dec 2024**. That is the not the date the project will complete. That's the date when updated plan will be posted.
 
 ## Resources
 
