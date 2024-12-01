@@ -9,7 +9,9 @@ This project aims to solve this problem by automating the work required on the d
 
 ## How It Works for Users
 
-Once this project is functional, users will need to wait 1 hour after registering their device with Firebase, after which a redacted version of their email address will appear on this page to indicate they're ready to download the app.
+Once this project is functional, users will need to wait 1 hour after registering their device with Firebase, after which a redacted version of their email address will appear on the project's website to indicate they're ready to download the app.
+
+Project's webiste -> https://iosappaccessautomation-9db62b5fb979.herokuapp.com/
 
 ## Status
 
