@@ -89,6 +89,10 @@ jobs:
         env:
           OVERRIDE_KOTLIN_BUILD_IDE_SUPPORTED: 'NO'
         run: |
+          cd ./PhotoAlbumKMP
+
+          ./gradlew :composeApp:embedAndSignAppleFrameworkForXcode
+
           cd ./PhotoAlbumKMP/iosApp
 
           xcodebuild -project ./iosApp.xcodeproj \
