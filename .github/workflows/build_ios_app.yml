@@ -55,9 +55,10 @@ jobs:
           python3 download_provisioning_profile.py
           ls provisioning_profile.mobileprovision
 
-      #     # apply provisioning profile
-      #     mkdir -p ~/Library/Developer/Xcode/UserData/Provisioning\ Profiles
-      #     cp $PP_PATH ~/Library/Developer/Xcode/UserData/Provisioning\ Profiles          
+          # apply provisioning profile
+          mkdir -p ~/Library/Developer/Xcode/UserData/Provisioning\ Profiles
+          cp provisioning_profile.mobileprovision ~/Library/Developer/Xcode/UserData/Provisioning\ Profiles
+          ls ~/Library/Developer/Xcode/UserData/Provisioning\ Profiles
 
       # - name: build archive
       #   run: |
