@@ -23,7 +23,7 @@ jobs:
           KEYCHAIN_PATH=app-signing.keychain-db
 
           # decoding password
-          APPLE_DISTRIBUTION_CERTIFICATE_PASSWORD=$(echo -n "$APPLE_DISTRIBUTION_CERTIFICATE_PASSWORD_BASE64" | base64)
+          APPLE_DISTRIBUTION_CERTIFICATE_PASSWORD=$(echo -n "$APPLE_DISTRIBUTION_CERTIFICATE_PASSWORD_BASE64" | base64 --decode)
 
           # import certificate from secrets
           echo -n "$APPLE_DISTRIBUTION_CERTIFICATE_BASE64" | base64 --decode -o $DISTRIBUTION_CERTIFICATE_PATH
