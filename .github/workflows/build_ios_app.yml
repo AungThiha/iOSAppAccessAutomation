@@ -76,15 +76,18 @@ jobs:
           repository: AungThiha/PhotoAlbumKMP
           path: ./PhotoAlbumKMP  # This will clone it into the "PhotoAlbumKMP" directory
 
+      - name: Setup Java
       - uses: actions/setup-java@v4
         with:
           distribution: 'temurin' # See 'Supported distributions' for available options
           java-version: '21'
 
       - name: Setup Gradle
-        uses: gradle/gradle-build-action@v2
+        uses: gradle/actions/setup-gradle@v3
 
       - name: Build archive
+        env:
+          OVERRIDE_KOTLIN_BUILD_IDE_SUPPORTED: "NO"
         run: |
           cd ./PhotoAlbumKMP/iosApp
 
