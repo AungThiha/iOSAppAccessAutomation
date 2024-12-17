@@ -12,10 +12,7 @@ jobs:
       - name: check Xcode version
         run: /usr/bin/xcodebuild -version
 
-      - name: checkout repository
-        uses: actions/checkout@v3
-
-      - name: Install the Apple certificate
+      - name: Install the Apple distribution certificate
         env:
           APPLE_DISTRIBUTION_CERTIFICATE_BASE64: ${{ secrets.APPLE_DISTRIBUTION_CERTIFICATE_BASE64 }}
           KEYCHAIN_PASSWORD: ${{ secrets.TEMP_KEYCHAIN_PASSWORD }}
@@ -35,6 +32,28 @@ jobs:
           # import certificate to keychain
           security import "$DISTRIBUTION_CERTIFICATE_PATH" -k $KEYCHAIN_PATH
           security list-keychain -d user -s $KEYCHAIN_PATH
+
+      - name: checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.9'
+
+      - name: Install dependencies
+        run: |
+          pip install pyjwt cryptography requests
+      
+      - name: Run Python script
+        env:
+          APPLE_CONNECT_API_KEY_BASE64: ${{ secrets.APPLE_CONNECT_API_KEY_BASE64 }}
+          APPLE_CONNECT_PRIVATE_KEY_ISSUER_ID_BASE64: ${{ secrets.APPLE_CONNECT_PRIVATE_KEY_ISSUER_ID_BASE64 }}
+          APPLE_CONNECT_PRIVATE_KEY_BASE64: ${{ secrets.APPLE_CONNECT_PRIVATE_KEY_BASE64 }}
+          PROVISIONING_PROFILE_ID_BASE64: ${{ secrets.PROVISIONING_PROFILE_ID_BASE64 }}
+        run: |
+          python3 download_provisioning_profile.py
+          ls provisioning_profile.mobileprovision
 
       #     # apply provisioning profile
       #     mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
