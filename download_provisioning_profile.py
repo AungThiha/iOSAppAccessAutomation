@@ -1,7 +1,8 @@
+import base64
 import jwt
+import os
 import requests
 import time
-import base64
 
 # Retrieve the secrets from the environment variables
 key_id_b64 = os.getenv('APPLE_CONNECT_API_KEY_BASE64')

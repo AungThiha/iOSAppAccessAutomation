@@ -56,8 +56,8 @@ jobs:
           ls provisioning_profile.mobileprovision
 
       #     # apply provisioning profile
-      #     mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
-      #     cp $PP_PATH ~/Library/MobileDevice/Provisioning\ Profiles          
+      #     mkdir -p ~/Library/Developer/Xcode/UserData/Provisioning\ Profiles
+      #     cp $PP_PATH ~/Library/Developer/Xcode/UserData/Provisioning\ Profiles          
 
       # - name: build archive
       #   run: |
