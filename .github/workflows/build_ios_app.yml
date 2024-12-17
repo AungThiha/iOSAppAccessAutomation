@@ -87,7 +87,7 @@ jobs:
 
       - name: Build archive
         env:
-          OVERRIDE_KOTLIN_BUILD_IDE_SUPPORTED: "NO"
+          OVERRIDE_KOTLIN_BUILD_IDE_SUPPORTED: 'NO'
         run: |
           cd ./PhotoAlbumKMP/iosApp
 
