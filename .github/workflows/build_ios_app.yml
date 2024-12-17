@@ -15,11 +15,15 @@ jobs:
       - name: Install the Apple distribution certificate
         env:
           APPLE_DISTRIBUTION_CERTIFICATE_BASE64: ${{ secrets.APPLE_DISTRIBUTION_CERTIFICATE_BASE64 }}
+          APPLE_DISTRIBUTION_CERTIFICATE_PASSWORD_BASE64: ${{ secrets.APPLE_DISTRIBUTION_CERTIFICATE_PASSWORD_BASE64 }}
           KEYCHAIN_PASSWORD: ${{ secrets.TEMP_KEYCHAIN_PASSWORD }}
         run: |
           # create variables
-          DISTRIBUTION_CERTIFICATE_PATH=distribution_certificate.cer
+          DISTRIBUTION_CERTIFICATE_PATH=distribution_certificate.p12
           KEYCHAIN_PATH=app-signing.keychain-db
+
+          # decoding password
+          APPLE_DISTRIBUTION_CERTIFICATE_PASSWORD=$(echo -n "$APPLE_DISTRIBUTION_CERTIFICATE_PASSWORD_BASE64" | base64)
 
           # import certificate from secrets
           echo -n "$APPLE_DISTRIBUTION_CERTIFICATE_BASE64" | base64 --decode -o $DISTRIBUTION_CERTIFICATE_PATH
@@ -30,7 +34,7 @@ jobs:
           security unlock-keychain -p "$KEYCHAIN_PASSWORD" $KEYCHAIN_PATH
 
           # import certificate to keychain
-          security import "$DISTRIBUTION_CERTIFICATE_PATH" -k $KEYCHAIN_PATH
+          security import $DISTRIBUTION_CERTIFICATE_PATH -P "$APPLE_DISTRIBUTION_CERTIFICATE_PASSWORD" -A -t cert -f pkcs12 -k $KEYCHAIN_PATH
           security list-keychain -d user -s $KEYCHAIN_PATH
 
       - name: checkout repository
@@ -57,8 +61,11 @@ jobs:
 
           # apply provisioning profile
           mkdir -p ~/Library/Developer/Xcode/UserData/Provisioning\ Profiles
-          cp provisioning_profile.mobileprovision ~/Library/Developer/Xcode/UserData/Provisioning\ Profiles
-          ls ~/Library/Developer/Xcode/UserData/Provisioning\ Profiles
+          cp ./provisioning_profile.mobileprovision ~/Library/Developer/Xcode/UserData/Provisioning\ Profiles
+
+          # cp provisioning profile into two places to make sure it works
+          mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
+          cp ./provisioning_profile.mobileprovision ~/Library/MobileDevice/Provisioning\ Profiles
 
       - name: Checkout PhotoAlbumKMP repo to a directory
         uses: actions/checkout@v2
