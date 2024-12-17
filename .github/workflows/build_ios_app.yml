@@ -111,7 +111,7 @@ jobs:
           xcodebuild -exportArchive \
           -archivePath ./build/iosApp.xcarchive \
           -exportPath ./build/ipa \
-          -exportOptionsPlist EXPORT_OPTS_PATH
+          -exportOptionsPlist $EXPORT_OPTS_PATH
 
       - name: Upload application
         uses: actions/upload-artifact@v3
