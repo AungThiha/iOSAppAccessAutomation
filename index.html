@@ -9,6 +9,25 @@
             margin: 0 20px;
             padding: 20px 0;
         }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        table, th, td {
+            border: 1px solid black;
+        }
+        th, td {
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        ul {
+            margin: 0;
+            padding-left: 20px;
+        }
     </style>
 </head>
 <body>
@@ -27,13 +46,129 @@
 
     <h2>How It Works for Users</h2>
     <p>
-        Once this project is functional, users will only need to wait approximately 1 hour after registering their device with Firebase, after which a redacted version of their email address will appear on this page to indicate they're ready to download the app.
+        Once this project is functional, users will only need to wait approximately 1 hour after registering their device with Firebase, after which they will receive an email from Firebase that informs the build is ready to be downloaded and.
     </p>
-    <h2>Status</h2>
+    <h2>Project Timeline</h2>
     <ul>
-        <li>This project will start on <strong>16 Dec 2024</strong>.</li>
-        <li>Expected completion date will be posted on <strong>18 Dec 2024</strong>. That is not the date the project will complete; that's the date when the updated plan will be posted.</li>
+        <li><strong>Start Date:</strong> 16 Dec 2024</li>
+        <li><strong>Expected Completion Date:</strong> 22 Feb 2025</li>
+        <li><strong>Working Hours a Week:</strong> 10 hours</li>
     </ul>
+    <h2>Task Breakdown</h2>
+    <table>
+    <thead>
+        <tr>
+            <th>No.</th>
+            <th>Task</th>
+            <th>Hours</th>
+            <th>Status</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>1</td>
+            <td>Distribution Certificate in Github Actions
+                <ul>
+                    <li>Export the Certificate from Xcode</li>
+                    <li>Base64-encode the certificate and save it in GitHub Secrets</li>
+                    <li>Create KeyChain in a GitHub workflow</li>
+                    <li>Install the certificate in GitHub workflow</li>
+                </ul>
+            </td>
+            <td>4</td>
+            <td>Done</td>
+        </tr>
+        <tr>
+            <td>2</td>
+            <td>Provisioning Profile in Github Actions
+                <ul>
+                    <li>Create a Private Key to access Apple Connect API</li>
+                    <li>A Python script to download the Provisioning Profile</li>
+                    <li>Copy the downloaded Provisioning Profile to workplace folder</li>
+                </ul>
+            </td>
+            <td>4</td>
+            <td>Done</td>
+        </tr>
+        <tr>
+            <td>3</td>
+            <td>Build the iOS app using Github Actions
+                <ul>
+                    <li>Create archive</li>
+                    <li>Export IPA</li>
+                </ul>
+            </td>
+            <td>8</td>
+            <td>Done</td>
+        </tr>
+        <tr>
+            <td>4</td>
+            <td>Listen to new device registration in Firebase using Firebase Cloud Functions</td>
+            <td>16</td>
+            <td>In Progress</td>
+        </tr>
+        <tr>
+            <td>5</td>
+            <td>Register new Apple device UUIDs using Apple Connect API through Firebase Cloud Functions</td>
+            <td>4</td>
+            <td>Not Started Yet</td>
+        </tr>
+        <tr>
+            <td>6</td>
+            <td>Update the Provisioning Profile using Apple Connect API through Firebase Cloud Functions</td>
+            <td>4</td>
+            <td>Not Started Yet</td>
+        </tr>
+        <tr>
+            <td>7</td>
+            <td>Generate a pair of private key and public key to establish key exchange between Firebase Cloud Functions and iOSAppAccessAutomation backend app</td>
+            <td>4</td>
+            <td>Not Started Yet</td>
+        </tr>
+        <tr>
+            <td>8</td>
+            <td>Write an API in iOSAppAccessAutomation for Firebase Cloud Functions to send emails and UUIDs</td>
+            <td>4</td>
+            <td>Not Started Yet</td>
+        </tr>
+        <tr>
+            <td>9</td>
+            <td>Send the email and the UUID of the new device to iOSAppAccessAutomation backend app through Firebase Cloud Functions</td>
+            <td>4</td>
+            <td>Not Started Yet</td>
+        </tr>
+        <tr>
+            <td>10</td>
+            <td>Learn how to establish communication between Firebase Cloud Functions and Github Actions</td>
+            <td>8</td>
+            <td>Not Started Yet</td>
+        </tr>
+        <tr>
+            <td>11</td>
+            <td>Trigger iOS build process in Github Actions through Firebase Cloud Functions</td>
+            <td>4</td>
+            <td>Not Started Yet</td>
+        </tr>
+        <tr>
+            <td>12</td>
+            <td>Download the list of emails from iOSAppAccessAutomation in Github Actions</td>
+            <td>2</td>
+            <td>Not Started Yet</td>
+        </tr>
+        <tr>
+            <td>13</td>
+            <td>Distribute the app through Firebase App Distribution using Github Actions</td>
+            <td>2</td>
+            <td>Not Started Yet</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td><strong>Total</strong></td>
+            <td><strong>68</strong></td>
+            <td></td>
+        </tr>
+    </tbody>
+    </table>
 
     <h2>Github</h2>
     <a href="https://github.com/AungThiha/iOSAppAccessAutomation">https://github.com/AungThiha/iOSAppAccessAutomation</a>
