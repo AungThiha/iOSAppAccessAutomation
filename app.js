@@ -8,7 +8,7 @@ app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'index.html'));
 });
 
-app.use('/photos', express.static('photos'))
+app.use('/images', express.static('images'))
 
 app.listen(port, () => {
     console.log(`Server is running on http://localhost:${port}`);
