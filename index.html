@@ -51,7 +51,7 @@
     <h2>Project Timeline</h2>
     <ul>
         <li><strong>Start Date:</strong> 16 Dec 2024</li>
-        <li><strong>Expected Completion Date:</strong> 22 Feb 2025</li>
+        <li><strong>Expected Completion Date:</strong> 24 Jan 2025</li>
         <li><strong>Working Hours a Week:</strong> 10 hours</li>
     </ul>
     <h2>Task Breakdown</h2>
@@ -59,7 +59,8 @@
     <thead>
         <tr>
             <th>No.</th>
-            <th>Task</th>
+            <th>Component</th>
+            <th>Part</th>
             <th>Hours</th>
             <th>Status</th>
         </tr>
@@ -75,6 +76,7 @@
                     <li>Install the certificate in GitHub workflow</li>
                 </ul>
             </td>
+            <td>iOS build GitHub workflow</td>
             <td>4</td>
             <td>Done</td>
         </tr>
@@ -87,6 +89,7 @@
                     <li>Copy the downloaded Provisioning Profile to workplace folder</li>
                 </ul>
             </td>
+            <td>iOS build GitHub workflow</td>
             <td>4</td>
             <td>Done</td>
         </tr>
@@ -94,81 +97,125 @@
             <td>3</td>
             <td>Build the iOS app using Github Actions
                 <ul>
+                    <li>Learn the basic usage of xcodebuild</li>
                     <li>Create archive</li>
                     <li>Export IPA</li>
+
                 </ul>
             </td>
+            <td>iOS build GitHub workflow</td>
             <td>8</td>
             <td>Done</td>
         </tr>
         <tr>
             <td>4</td>
-            <td>Listen to new device registration in Firebase using Firebase Cloud Functions</td>
-            <td>16</td>
-            <td>In Progress</td>
+            <td>Listen to new device registration in Firebase using Firebase Cloud Functions
+<ul>
+                    <li>Setup Firebase Cloud Functions project</li>
+                    <li>Add event listener for new device registration</li>
+                    <li>Add logs</li>
+
+                </ul>
+</td>
+                
+            <td>iOSAppInviteAlert</td>
+            <td>4</td>
+            <td>Done</td>
         </tr>
         <tr>
             <td>5</td>
             <td>Register new Apple device UUIDs using Apple Connect API through Firebase Cloud Functions</td>
+            <td>iOSAppInviteAlert</td>
             <td>4</td>
-            <td>Not Started Yet</td>
+            <td>In Progress</td>
         </tr>
         <tr>
             <td>6</td>
-            <td>Update the Provisioning Profile using Apple Connect API through Firebase Cloud Functions</td>
-            <td>4</td>
+            <td>Update the Provisioning Profile using Apple Connect API through Firebase Cloud Functions
+            <ul>
+                    <li>Re-use the setup from No.5 for calling Apple Connect API</li>
+                </ul>
+            </td>
+            <td>iOSAppInviteAlert</td>
+            <td>2</td>
             <td>Not Started Yet</td>
         </tr>
         <tr>
             <td>7</td>
-            <td>Generate a pair of private key and public key to establish key exchange between Firebase Cloud Functions and iOSAppAccessAutomation backend app</td>
-            <td>4</td>
+            <td>Use RSA to support secure communications between Firebase Cloud Functions and iOSAppAccessAutomation backend app</td>
+            <td>iOSAppInviteAlert</td>
+            <td>2</td>
             <td>Not Started Yet</td>
         </tr>
         <tr>
             <td>8</td>
-            <td>Write an API in iOSAppAccessAutomation for Firebase Cloud Functions to send emails and UUIDs</td>
+            <td>Write an API for Firebase Cloud Functions to send emails and UUIDs
+            <ul>
+                    <li>Setup PostgreSQL in Heroku</li>
+                </ul>
+            </td>
+            <td>iOSAppAccessAutomation</td>
             <td>4</td>
             <td>Not Started Yet</td>
         </tr>
         <tr>
             <td>9</td>
             <td>Send the email and the UUID of the new device to iOSAppAccessAutomation backend app through Firebase Cloud Functions</td>
+            <td>iOSAppInviteAlert</td>
             <td>4</td>
             <td>Not Started Yet</td>
         </tr>
         <tr>
             <td>10</td>
-            <td>Learn how to establish communication between Firebase Cloud Functions and Github Actions</td>
+            <td>Trigger iOS build process in Github Actions through Firebase Cloud Functions
+            <ul>
+                    <li>Learn how to use GitHub Actions' Rest APIs for this</li>
+                </ul>
+            </td>
+            <td>iOSAppInviteAlert</td>
             <td>8</td>
             <td>Not Started Yet</td>
         </tr>
         <tr>
             <td>11</td>
-            <td>Trigger iOS build process in Github Actions through Firebase Cloud Functions</td>
-            <td>4</td>
+            <td>Use RSA to support secure communications between the GitHub workflow and iOSAppAccessAutomation backend app</td>
+            <td>iOS build GitHub workflow</td>
+            <td>2</td>
             <td>Not Started Yet</td>
         </tr>
-        <tr>
+                <tr>
             <td>12</td>
-            <td>Download the list of emails from iOSAppAccessAutomation in Github Actions</td>
+            <td>Write an API for the GitHub workflow to download the list of emails</td>
+            <td>iOSAppAccessAutomation</td>
             <td>2</td>
             <td>Not Started Yet</td>
         </tr>
         <tr>
             <td>13</td>
-            <td>Distribute the app through Firebase App Distribution using Github Actions</td>
+            <td>Download the list of emails from iOSAppAccessAutomation</td>
+            <td>iOS build GitHub workflow</td>
+            <td>2</td>
+            <td>Not Started Yet</td>
+        </tr>
+        <tr>
+            <td>14</td>
+            <td>Distribute the app through Firebase App Distribution</td>
+            <td>iOS build GitHub workflow</td>
             <td>2</td>
             <td>Not Started Yet</td>
         </tr>
         <tr>
             <td></td>
             <td><strong>Total</strong></td>
-            <td><strong>68</strong></td>
+            <td></td>
+            <td><strong>52</strong></td>
             <td></td>
         </tr>
     </tbody>
-    </table>
+</table>
+
+
+
 
     <h2>Github</h2>
     <a href="https://github.com/AungThiha/iOSAppAccessAutomation">https://github.com/AungThiha/iOSAppAccessAutomation</a>
