@@ -56,6 +56,16 @@
     <p>
         Once this project is functional, users will only need to wait approximately 1 hour after registering their device with Firebase, after which they will receive an email from Firebase that informs the build is ready to be downloaded and installed.
     </p>
+    <h2>Personal Goal</h2>
+    <p>
+        Estimating something unknown has always been problematic for me. Sometimes, I estimate 16 hours and it's done in 4 hours. Sometimes, it's the other way around. This makes stakeholders unhappy because it's difficult for them to manage project timelines.
+    </p>
+    <p>
+        The project is planned to be carried out with a focus on figuring out what can be done to address this weakness of mine and applying the findings along the way.
+    </p>
+    <p>
+        All lessons learned so far are highlighted under the section titled "Lesson Learned".
+    </p>
     <h2>Project Timeline</h2>
     <ul>
         <li><strong>Start Date:</strong> 16 Dec 2024</li>
@@ -71,7 +81,14 @@
     </ul>
     <p><strong>Firebase (App Distribution)</strong> and <strong>Apple Developer Account (via Apple Connect API)</strong> are external parties where no coding is required.</p>
     </p>
-    <img src="images/diagram.jpg" alt="Design" class="responsive-image">
+    <img src="images/diagram2.jpg" alt="Design" class="responsive-image">
+    <h2>Project Revision</h2>
+    <p>Initially, it was designed to update the provisioning profile from the Firebase Cloud Function but later, it was found that Apple Connect API does not support updating provisioning profile. It only provides APIs for creating and deleting.</p> 
+    <p>Because of it, it's decided to create a new provisioning profile for every build using Github Workflow instead.</p>
+    <p>Creating a provisioning profile returns the created provisioning profile as part of the response. Therefore, the task number 3 in the Task Breakdown was discarded.</p>
+    <p>The task number 7 is also canceled but because the time spent on this task revealed the missing information that led to this revision, it's still marked as 1 hour spent on this task.</p>
+    <p>This revision increased the project timeline by 7 hours.</p>
+    <p>The discarded initial design can be found <a href="images/diagram.jpg" target="_blank">here</a>.</p>
     <h2>Task Breakdown</h2>
     <table>
     <thead>
@@ -86,6 +103,18 @@
     <tbody>
         <tr>
             <td>1</td>
+            <td>Design Doc
+                <ul>
+                    <li>Diagram</li>
+                    <li>Website</li>
+                </ul>
+            </td>
+            <td></td>
+            <td>8</td>
+            <td>Done</td>
+        </tr>
+        <tr>
+            <td>2</td>
             <td>Distribution Certificate in Github Actions
                 <ul>
                     <li>Export the Certificate from Xcode</li>
@@ -99,26 +128,26 @@
             <td>Done</td>
         </tr>
         <tr>
-            <td>2</td>
+            <td>3</td>
             <td>Provisioning Profile in Github Actions
                 <ul>
                     <li>Create a Private Key to access Apple Connect API</li>
                     <li>A Python script to download the Provisioning Profile</li>
                     <li>Copy the downloaded Provisioning Profile to workplace folder</li>
                 </ul>
+                <b>This work is discarded after revision. Explanation is in the section titled "Project Revision". However, the private key from this work is re-used in task 11</b>
             </td>
             <td>iOS build GitHub workflow</td>
             <td>4</td>
-            <td>Done</td>
+            <td>Done but discarded</td>
         </tr>
         <tr>
-            <td>3</td>
+            <td>4</td>
             <td>Build the iOS app using Github Actions
                 <ul>
                     <li>Learn the basic usage of xcodebuild</li>
                     <li>Create archive</li>
                     <li>Export IPA</li>
-
                 </ul>
             </td>
             <td>iOS build GitHub workflow</td>
@@ -126,7 +155,7 @@
             <td>Done</td>
         </tr>
         <tr>
-            <td>4</td>
+            <td>5</td>
             <td>Listen to new device registration in Firebase using Firebase Cloud Functions
 <ul>
                     <li>Setup Firebase Cloud Functions project</li>
@@ -141,32 +170,33 @@
             <td>Done</td>
         </tr>
         <tr>
-            <td>5</td>
+            <td>6</td>
             <td>Register new Apple device UUIDs using Apple Connect API through Firebase Cloud Functions</td>
             <td>iOSAppInviteAlert</td>
             <td>4</td>
             <td>Done</td>
         </tr>
         <tr>
-            <td>6</td>
+            <td>7</td>
             <td>Update the Provisioning Profile using Apple Connect API through Firebase Cloud Functions
             <ul>
-                    <li>Re-use the setup from No.5 for calling Apple Connect API</li>
+                    <li>Re-use the setup from No.6 for calling Apple Connect API</li>
                 </ul>
+            <b>This work is discarded after revision. Explanation is in the section titled "Project Revision"</b>
             </td>
+            <td>iOSAppInviteAlert</td>
+            <td>1</td>
+            <td>Canceled</td>
+        </tr>
+        <tr>
+            <td>8</td>
+            <td>Use RSA to support secure communications between Firebase Cloud Functions and iOSAppAccessAutomation backend app</td>
             <td>iOSAppInviteAlert</td>
             <td>2</td>
             <td>In Progress</td>
         </tr>
         <tr>
-            <td>7</td>
-            <td>Use RSA to support secure communications between Firebase Cloud Functions and iOSAppAccessAutomation backend app</td>
-            <td>iOSAppInviteAlert</td>
-            <td>2</td>
-            <td>Not Started Yet</td>
-        </tr>
-        <tr>
-            <td>8</td>
+            <td>9</td>
             <td>Write an API for Firebase Cloud Functions to send emails and UUIDs
             <ul>
                     <li>Setup PostgreSQL in Heroku</li>
@@ -177,14 +207,38 @@
             <td>Not Started Yet</td>
         </tr>
         <tr>
-            <td>9</td>
+            <td>10</td>
             <td>Send the email and the UUID of the new device to iOSAppAccessAutomation backend app through Firebase Cloud Functions</td>
             <td>iOSAppInviteAlert</td>
             <td>4</td>
             <td>Not Started Yet</td>
         </tr>
         <tr>
-            <td>10</td>
+            <td>11</td>
+            <td>Downloading the device list from Apple in Github Actions
+                <ul>
+                    <li>Re-use the Private Key from task 2</li>
+                    <li>A Python script to download the device list</li>
+                </ul>
+            </td>
+            <td>iOS build GitHub workflow</td>
+            <td>4</td>
+            <td>Not Started Yet</td>
+        </tr>
+        <tr>
+            <td>12</td>
+            <td>Creating Provisioning Profile from Github Actions
+                <ul>
+                    <li>Update the Python script from task 11 to include this</li>
+                    <li>Copy the created Provisioning Profile to workplace folder</li>
+                </ul>
+            </td>
+            <td>iOS build GitHub workflow</td>
+            <td>4</td>
+            <td>Not Started Yet</td>
+        </tr>
+        <tr>
+            <td>13</td>
             <td>Trigger iOS build process in Github Actions through Firebase Cloud Functions
             <ul>
                     <li>Learn how to use GitHub Actions' Rest APIs for this</li>
@@ -195,28 +249,28 @@
             <td>Not Started Yet</td>
         </tr>
         <tr>
-            <td>11</td>
+            <td>14</td>
             <td>Use RSA to support secure communications between the GitHub workflow and iOSAppAccessAutomation backend app</td>
             <td>iOS build GitHub workflow</td>
             <td>2</td>
             <td>Not Started Yet</td>
         </tr>
                 <tr>
-            <td>12</td>
+            <td>15</td>
             <td>Write an API for the GitHub workflow to download the list of emails</td>
             <td>iOSAppAccessAutomation</td>
             <td>2</td>
             <td>Not Started Yet</td>
         </tr>
         <tr>
-            <td>13</td>
+            <td>16</td>
             <td>Download the list of emails from iOSAppAccessAutomation</td>
             <td>iOS build GitHub workflow</td>
             <td>2</td>
             <td>Not Started Yet</td>
         </tr>
         <tr>
-            <td>14</td>
+            <td>17</td>
             <td>Distribute the app through Firebase App Distribution</td>
             <td>iOS build GitHub workflow</td>
             <td>2</td>
@@ -226,7 +280,7 @@
             <td></td>
             <td><strong>Total</strong></td>
             <td></td>
-            <td><strong>52</strong></td>
+            <td><strong>67</strong></td>
             <td></td>
         </tr>
     </tbody>
@@ -266,6 +320,18 @@
         <li>
             Firebase offers an API to upload an iOS build from a command line. 
             <a href="https://firebase.google.com/docs/app-distribution/ios/distribute-cli" target="_blank">https://firebase.google.com/docs/app-distribution/ios/distribute-cli</a>
+        </li>
+    </ul>
+    <h2>Lessons Learned</h2>
+    <ul>
+        <li>
+            The revision happened because during the design task, an API was planned to be used without knowing whether such API even exists or not. Just because downloading, creating and deleting exist, updating cannot be assumed to be there too.
+        </li>
+        <li>
+            Estimation is easier when a big task is broken down into smaller ones. It makes it a lot easier to estimate and makes the the estimates more accurate.
+        </li>
+        <li>
+            Dedicating a certain amount of time specifically for researching what needs to be done helps making unknowns knowns and helps with estimation. Such research work should always be done for projects that involve unknowns.
         </li>
     </ul>
     <h2>Author</h2>
