@@ -69,7 +69,7 @@
     <h2>Project Timeline</h2>
     <ul>
         <li><strong>Start Date:</strong> 16 Dec 2024</li>
-        <li><strong>Expected Completion Date:</strong> 24 Jan 2025</li>
+        <li><strong>Expected Completion Date:</strong> 31 Jan 2025</li>
         <li><strong>Working Hours a Week:</strong> 10 hours</li>
     </ul>
     <h2>Design</h2>
@@ -87,7 +87,7 @@
     <p>Because of it, it's decided to create a new provisioning profile for every build using Github Workflow instead.</p>
     <p>Creating a provisioning profile returns the created provisioning profile as part of the response. Therefore, the task number 3 in the Task Breakdown was discarded.</p>
     <p>The task number 7 is also canceled but because the time spent on this task revealed the missing information that led to this revision, it's still marked as 1 hour spent on this task.</p>
-    <p>This revision increased the project timeline by 7 hours.</p>
+    <p>This revision increased the project timeline by 13 hours.</p>
     <p>The discarded initial design can be found <a href="images/diagram.jpg" target="_blank">here</a>.</p>
     <h2>Task Breakdown</h2>
     <table>
@@ -190,13 +190,25 @@
         </tr>
         <tr>
             <td>8</td>
+            <td>Project Revision
+                <ul>
+                    <li>Diagram update</li>
+                    <li>Task Breakdown update</li>
+                </ul>
+            </td>
+            <td></td>
+            <td>2</td>
+            <td>Done</td>
+        </tr>
+        <tr>
+            <td>9</td>
             <td>Use RSA to support secure communications between Firebase Cloud Functions and iOSAppAccessAutomation backend app</td>
             <td>iOSAppInviteAlert</td>
             <td>2</td>
             <td>In Progress</td>
         </tr>
         <tr>
-            <td>9</td>
+            <td>10</td>
             <td>Write an API for Firebase Cloud Functions to send emails and UUIDs
             <ul>
                     <li>Setup PostgreSQL in Heroku</li>
@@ -207,14 +219,14 @@
             <td>Not Started Yet</td>
         </tr>
         <tr>
-            <td>10</td>
+            <td>11</td>
             <td>Send the email and the UUID of the new device to iOSAppAccessAutomation backend app through Firebase Cloud Functions</td>
             <td>iOSAppInviteAlert</td>
             <td>4</td>
             <td>Not Started Yet</td>
         </tr>
         <tr>
-            <td>11</td>
+            <td>12</td>
             <td>Downloading the device list from Apple in Github Actions
                 <ul>
                     <li>Re-use the Private Key from task 2</li>
@@ -226,7 +238,7 @@
             <td>Not Started Yet</td>
         </tr>
         <tr>
-            <td>12</td>
+            <td>13</td>
             <td>Creating Provisioning Profile from Github Actions
                 <ul>
                     <li>Update the Python script from task 11 to include this</li>
@@ -238,7 +250,7 @@
             <td>Not Started Yet</td>
         </tr>
         <tr>
-            <td>13</td>
+            <td>14</td>
             <td>Trigger iOS build process in Github Actions through Firebase Cloud Functions
             <ul>
                     <li>Learn how to use GitHub Actions' Rest APIs for this</li>
@@ -249,29 +261,43 @@
             <td>Not Started Yet</td>
         </tr>
         <tr>
-            <td>14</td>
+            <td>15</td>
             <td>Use RSA to support secure communications between the GitHub workflow and iOSAppAccessAutomation backend app</td>
             <td>iOS build GitHub workflow</td>
             <td>2</td>
             <td>Not Started Yet</td>
         </tr>
                 <tr>
-            <td>15</td>
+            <td>16</td>
             <td>Write an API for the GitHub workflow to download the list of emails</td>
             <td>iOSAppAccessAutomation</td>
             <td>2</td>
             <td>Not Started Yet</td>
         </tr>
         <tr>
-            <td>16</td>
+            <td>17</td>
             <td>Download the list of emails from iOSAppAccessAutomation</td>
             <td>iOS build GitHub workflow</td>
             <td>2</td>
             <td>Not Started Yet</td>
         </tr>
         <tr>
-            <td>17</td>
+            <td>18</td>
             <td>Distribute the app through Firebase App Distribution</td>
+            <td>iOS build GitHub workflow</td>
+            <td>2</td>
+            <td>Not Started Yet</td>
+        </tr>
+        <tr>
+            <td>19</td>
+            <td>Download provisioning profile list</td>
+            <td>iOS build GitHub workflow</td>
+            <td>2</td>
+            <td>Not Started Yet</td>
+        </tr>
+        <tr>
+            <td>20</td>
+            <td>Delete all previous created provisioning profiles</td>
             <td>iOS build GitHub workflow</td>
             <td>2</td>
             <td>Not Started Yet</td>
@@ -280,7 +306,7 @@
             <td></td>
             <td><strong>Total</strong></td>
             <td></td>
-            <td><strong>67</strong></td>
+            <td><strong>73</strong></td>
             <td></td>
         </tr>
     </tbody>
