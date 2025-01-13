@@ -38,6 +38,13 @@
             height: auto;
             display: inline-block;
         }
+        .er_diagram {
+            max-width: 20%; 
+            max-height: 100vh;
+            width: auto;
+            height: auto;
+            display: inline-block;
+        }
     </style>
 </head>
 <body>
@@ -86,6 +93,11 @@
     <div class="image-container">
         <img src="images/diagram2.jpg" class="responsive-image" alt="Diagram">
     </div>
+    <h3>ER Diagram</h3>
+    <div class="image-container">
+        <img src="images/er_diagram.jpg" class="er_diagram" alt="ER Diagram">
+    </div>
+    <p>This is used in <strong>iOSAppAccessAutomation</strong></p>
     <h2>Project Revision</h2>
     <p>Initially, it was designed to update the provisioning profile from the Firebase Cloud Function but later, it was found that Apple Connect API does not support updating provisioning profile. It only provides APIs for creating and deleting.</p> 
     <p>Because of it, it's decided to create a new provisioning profile for every build using Github Workflow instead.</p>
@@ -206,28 +218,35 @@
         </tr>
         <tr>
             <td>9</td>
-            <td>Use RSA to support secure communications between Firebase Cloud Functions and iOSAppAccessAutomation backend app</td>
+            <td>Use AES to support secure communications between Firebase Cloud Functions and iOSAppAccessAutomation backend app
+            <ul>
+                    <li>Setup middleware in iOSAppAccessAutomation for decryption</li>
+                    <li>Set  in iOSAppAccessAutomation for decryption</li>
+                </ul></td>
             <td>iOSAppInviteAlert</td>
             <td>2</td>
-            <td>In Progress</td>
+            <td>Done</td>
         </tr>
         <tr>
             <td>10</td>
             <td>Write an API for Firebase Cloud Functions to send emails and UUIDs
             <ul>
+                    <li>Organize the project in MVC design pattern</li>
+                    <li>ER diagram</li>
+                    <li>Setup database models using an ORM named Sequelize</li>
                     <li>Setup PostgreSQL in Heroku</li>
                 </ul>
             </td>
             <td>iOSAppAccessAutomation</td>
             <td>4</td>
-            <td>Not Started Yet</td>
+            <td>Done</td>
         </tr>
         <tr>
             <td>11</td>
             <td>Send the email and the UUID of the new device to iOSAppAccessAutomation backend app through Firebase Cloud Functions</td>
             <td>iOSAppInviteAlert</td>
             <td>4</td>
-            <td>Not Started Yet</td>
+            <td>In Progress</td>
         </tr>
         <tr>
             <td>12</td>
