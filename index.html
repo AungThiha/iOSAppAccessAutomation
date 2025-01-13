@@ -90,6 +90,7 @@
     </ul>
     <p><strong>Firebase (App Distribution)</strong> and <strong>Apple Developer Account (via Apple Connect API)</strong> are external parties where no coding is required.</p>
     </p>
+    <h3>Sequence Diagram</h3>
     <div class="image-container">
         <img src="images/diagram2.jpg" class="responsive-image" alt="Diagram">
     </div>
@@ -98,6 +99,7 @@
         <img src="images/er_diagram.jpg" class="er_diagram" alt="ER Diagram">
     </div>
     <p>This is used in <strong>iOSAppAccessAutomation</strong></p>
+    <h3>Cryptography</h3>
     <h2>Project Revision</h2>
     <p>Initially, it was designed to update the provisioning profile from the Firebase Cloud Function but later, it was found that Apple Connect API does not support updating provisioning profile. It only provides APIs for creating and deleting.</p> 
     <p>Because of it, it's decided to create a new provisioning profile for every build using Github Workflow instead.</p>
@@ -252,7 +254,7 @@
             <td>12</td>
             <td>Downloading the device list from Apple in Github Actions
                 <ul>
-                    <li>Re-use the Private Key from task 2</li>
+                    <li>Re-use the Private Key from task 3</li>
                     <li>A Python script to download the device list</li>
                 </ul>
             </td>
