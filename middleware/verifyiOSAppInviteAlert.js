@@ -2,7 +2,7 @@ const crypto = require('crypto');
 
 const verifyiOSAppInvite = (req, res, next) => {
     const encryptionKey = process.env.IOS_APP_INVITE_ENCRYPTION_KEY_BASE64;
-    const algorithm = 'aes-256-cbc';
+    const algorithm = 'aes-256-gcm';
 
     if (!req.body.iv) {
         return res.status(403).json({ message: 'Missing required fields' });
@@ -18,6 +18,8 @@ const verifyiOSAppInvite = (req, res, next) => {
             Buffer.from(encryptionKey, 'base64'), 
             Buffer.from(req.body.iv, 'base64')
         );
+        decipher.setAuthTag(Buffer.from(req.body.authTag, 'base64'));
+
         let decrypted = decipher.update(req.body.encryptedData, 'base64', 'utf8');
         decrypted += decipher.final('utf8');
 
