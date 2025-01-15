@@ -31,6 +31,10 @@ exports.newDevice = async (req, res) => {
       return res.status(403).json({ message: 'Missing required fields' });
   }
 
+  if (udid == "ffffffffffffffffffffffffffffffffffffffff") {
+    return res.status(403).json({ message: 'Simulator not allowed' });
+  }
+
   try {
     const transaction = await db.sequelize.transaction();
     try {

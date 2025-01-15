@@ -106,7 +106,7 @@
 <p>This design is partly inspired by TLS 1.2 where symmetric encryption is used for exchanging application data once a shared secret is established using an asymmetric encryption like RSA or a key exchange algorithm like Diffie-Hellman (<a href="https://tls12.xargs.org/">Driscoll, M., 2024</a>; <a href="https://www.youtube.com/watch?v=j9QmMEWmcfo">Lam, S., 2024</a>). In this project, it can be said that the key exchange is manually done because the secret key is manually generated using OpenSSL and saved into Firebase Cloud Secret Manager for iOSAppInviteAlert as it is a Firebase Cloud Function and into Heroku configuration variables for iOSAppAccessAutomation as it is deployed on Heroku.</p>
 <p>For an organization, Heroku configuration variables may not be a viable option because Heroku doesn’t provide a way to pick and choose what features of Heroku a team member can have access to. This makes the secret keys visible to anyone who has access to Heroku dashboard. However, for this project, because I’m the sole engineer, this is not an issue.</p>
 <p>As for the AES mode, GCM is chosen over CBC and CCM because CBC is vulnerable to padding oracle attack (<a href="https://flast101.github.io/padding-oracle-attack-explained/">fast101, 2020</a>) and CCM is slower than GCM (<a href="http://mcs.csueastbay.edu/~lertaul/AESCCMCAMREADY.pdf">Ertaul, E. et al, n.d.</a>). </p>
-<p>As a final note on securing communications between iOSAppInviteAlert and iOSAppAccessAutomation, one improvement that can be done is to rotate the secret key to minimize the impact if a key is compromised. This will be done in the next phase.</p>
+<p>As a final note on securing communications between iOSAppInviteAlert and iOSAppAccessAutomation, one improvement that can be done is to rotate the secret key periodically to minimize the impact if a key is compromised. This will be done in the next phase.</p>
 <h4>Between the GitHub workflow and iOSAppAccessAutomation</h4>
 <p>Task 15 in the task breakdown is to design the secure communication between the GitHub workflow and iOSAppAccessAutomation, which is not started yet.</p>
     <h2>Edge Case</h2>
@@ -200,7 +200,7 @@
         </tr>
         <tr>
             <td>6</td>
-            <td>Register new Apple device UUIDs using Apple Connect API through Firebase Cloud Functions</td>
+            <td>Register new Apple device UDIDs using Apple Connect API through Firebase Cloud Functions</td>
             <td>iOSAppInviteAlert</td>
             <td>4</td>
             <td>Done</td>
@@ -242,7 +242,7 @@
         </tr>
         <tr>
             <td>10</td>
-            <td>Write an API for iOSAppInviteAlert to send emails and UUIDs
+            <td>Write an API for iOSAppInviteAlert to send emails and UDIDs
             <ul>
                     <li>Organize the project in MVC design pattern</li>
                     <li>ER diagram</li>
@@ -256,7 +256,7 @@
         </tr>
         <tr>
             <td>11</td>
-            <td>Send the email and the UUID of the new device to iOSAppAccessAutomation backend app through Firebase Cloud Functions</td>
+            <td>Send the email and the UDID of the new device to iOSAppAccessAutomation backend app through Firebase Cloud Functions</td>
             <td>iOSAppInviteAlert</td>
             <td>4</td>
             <td>In Progress</td>
