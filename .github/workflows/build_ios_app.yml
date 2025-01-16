@@ -7,7 +7,7 @@ jobs:
   build_with_signing:
     runs-on: macos-latest
     steps:
-      # this was more debug as was curious what came pre-installed
+      # just to check what came pre-installed
       # GitHub shares this online, e.g. https://github.com/actions/runner-images/blob/macOS-12/20230224.1/images/macos/macos-12-Readme.md
       - name: check Xcode version
         run: /usr/bin/xcodebuild -version
@@ -40,9 +40,6 @@ jobs:
           security list-keychain -d user -s $KEYCHAIN_PATH
           security find-identity -v -p codesigning
 
-      - name: checkout repository
-        uses: actions/checkout@v3
-
       - name: Set up Python
         uses: actions/setup-python@v2
         with:
@@ -52,14 +49,15 @@ jobs:
         run: |
           pip install pyjwt cryptography requests
       
-      - name: Download provisioning profile
+      - name: Create provisioning profile
         env:
           APPLE_CONNECT_API_KEY_BASE64: ${{ secrets.APPLE_CONNECT_API_KEY_BASE64 }}
           APPLE_CONNECT_PRIVATE_KEY_ISSUER_ID_BASE64: ${{ secrets.APPLE_CONNECT_PRIVATE_KEY_ISSUER_ID_BASE64 }}
           APPLE_CONNECT_PRIVATE_KEY_BASE64: ${{ secrets.APPLE_CONNECT_PRIVATE_KEY_BASE64 }}
-          PROVISIONING_PROFILE_ID_BASE64: ${{ secrets.PROVISIONING_PROFILE_ID_BASE64 }}
+          APPLE_DISTRIBUTION_CERTIFICATE_ID_BASE64: ${{ secrets.APPLE_DISTRIBUTION_CERTIFICATE_ID_BASE64 }}
+          PHOTO_ALBUM_IOS_APP_BUNDLE_ID_BASE64: ${{ secrets.PHOTO_ALBUM_IOS_APP_BUNDLE_ID_BASE64 }}
         run: |
-          python3 download_provisioning_profile.py
+          python3 ./apple/create_provisioning_profile.py
           ls provisioning_profile.mobileprovision
 
           # apply provisioning profile

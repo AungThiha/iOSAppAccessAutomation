@@ -2,6 +2,7 @@
 createprofile.js
 create_db.js
 __pycache__
+provisioning_profile.mobileprovision
 
 # Logs
 .DS_Store
