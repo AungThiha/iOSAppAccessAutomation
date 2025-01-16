@@ -3,6 +3,8 @@ createprofile.js
 create_db.js
 __pycache__
 provisioning_profile.mobileprovision
+list_apple_certificates.py
+list_provisioning_profile.py
 
 # Logs
 .DS_Store
