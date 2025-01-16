@@ -12,30 +12,30 @@ jobs:
       - name: check Xcode version
         run: /usr/bin/xcodebuild -version
 
-      # - name: Install the Apple distribution certificate
-      #   env:
-      #     APPLE_DISTRIBUTION_CERTIFICATE_BASE64: ${{ secrets.APPLE_DISTRIBUTION_CERTIFICATE_BASE64 }}
-      #     APPLE_DISTRIBUTION_CERTIFICATE_PASSWORD: ${{ secrets.APPLE_DISTRIBUTION_CERTIFICATE_PASSWORD_BASE64 }}
-      #     KEYCHAIN_PASSWORD: ${{ secrets.TEMP_KEYCHAIN_PASSWORD }}
-      #   run: |
-      #     # create variables
-      #     DISTRIBUTION_CERTIFICATE_PATH=distribution_certificate.p12
-      #     KEYCHAIN_PATH=app-signing.keychain-db
+      - name: Install the Apple distribution certificate
+        env:
+          APPLE_DISTRIBUTION_CERTIFICATE_BASE64: ${{ secrets.APPLE_DISTRIBUTION_CERTIFICATE_BASE64 }}
+          APPLE_DISTRIBUTION_CERTIFICATE_PASSWORD: ${{ secrets.APPLE_DISTRIBUTION_CERTIFICATE_PASSWORD_BASE64 }}
+          KEYCHAIN_PASSWORD: ${{ secrets.TEMP_KEYCHAIN_PASSWORD }}
+        run: |
+          # create variables
+          DISTRIBUTION_CERTIFICATE_PATH=distribution_certificate.p12
+          KEYCHAIN_PATH=app-signing.keychain-db
 
-      #     # import certificate from secrets
-      #     echo -n "$APPLE_DISTRIBUTION_CERTIFICATE_BASE64" | base64 --decode -o $DISTRIBUTION_CERTIFICATE_PATH
+          # import certificate from secrets
+          echo -n "$APPLE_DISTRIBUTION_CERTIFICATE_BASE64" | base64 --decode -o $DISTRIBUTION_CERTIFICATE_PATH
 
-      #     # create temporary keychain
-      #     security create-keychain -p "$KEYCHAIN_PASSWORD" $KEYCHAIN_PATH
-      #     security set-keychain-settings -lut 21600 $KEYCHAIN_PATH
-      #     security unlock-keychain -p "$KEYCHAIN_PASSWORD" $KEYCHAIN_PATH
-      #     security default-keychain -d user -s $KEYCHAIN_PATH
+          # create temporary keychain
+          security create-keychain -p "$KEYCHAIN_PASSWORD" $KEYCHAIN_PATH
+          security set-keychain-settings -lut 21600 $KEYCHAIN_PATH
+          security unlock-keychain -p "$KEYCHAIN_PASSWORD" $KEYCHAIN_PATH
+          security default-keychain -d user -s $KEYCHAIN_PATH
 
-      #     # import certificate to keychain
-      #     security import $DISTRIBUTION_CERTIFICATE_PATH -P "$APPLE_DISTRIBUTION_CERTIFICATE_PASSWORD" -A -t cert -f pkcs12 -k $KEYCHAIN_PATH -T "/usr/bin/codesign"
-      #     security set-key-partition-list -S apple-tool:,apple:,codesign:,java: -k "$KEYCHAIN_PASSWORD" $KEYCHAIN_PATH
-      #     security list-keychain -d user -s $KEYCHAIN_PATH
-      #     security find-identity -v -p codesigning
+          # import certificate to keychain
+          security import $DISTRIBUTION_CERTIFICATE_PATH -P "$APPLE_DISTRIBUTION_CERTIFICATE_PASSWORD" -A -t cert -f pkcs12 -k $KEYCHAIN_PATH -T "/usr/bin/codesign"
+          security set-key-partition-list -S apple-tool:,apple:,codesign:,java: -k "$KEYCHAIN_PASSWORD" $KEYCHAIN_PATH
+          security list-keychain -d user -s $KEYCHAIN_PATH
+          security find-identity -v -p codesigning
 
       - name: checkout repository
         uses: actions/checkout@v3
@@ -59,11 +59,15 @@ jobs:
         run: |
           python3 .github/apple/create_provisioning_profile.py
           ls provisioning_profile.mobileprovision
+          ls .github/apple/provisioning_profile.mobileprovision
 
           # apply provisioning profile
           mkdir -p ~/Library/Developer/Xcode/UserData/Provisioning\ Profiles
-          cp provisioning_profile.mobileprovision ~/Library/Developer/Xcode/UserData/Provisioning\ Profiles
-          ls provisioning_profile.mobileprovision ~/Library/Developer/Xcode/UserData/Provisioning\ Profiles/provisioning_profile.mobileprovision
+          cp ./provisioning_profile.mobileprovision ~/Library/Developer/Xcode/UserData/Provisioning\ Profiles
+
+          # cp provisioning profile into another place to make sure it works
+          mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
+          cp ./provisioning_profile.mobileprovision ~/Library/MobileDevice/Provisioning\ Profiles
 
       - name: Checkout PhotoAlbumKMP repo to a directory
         uses: actions/checkout@v3
