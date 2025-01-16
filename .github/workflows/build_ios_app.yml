@@ -37,6 +37,16 @@ jobs:
           security list-keychain -d user -s $KEYCHAIN_PATH
           security find-identity -v -p codesigning
 
+      - name: Set up sparse checkout
+        uses: actions/checkout@v3
+        with:
+          sparse-checkout: true
+
+      - name: Checkout .github/apple
+        run: |
+          echo ".github/apple" >> .git/info/sparse-checkout
+          git checkout HEAD
+
       - name: Set up Python
         uses: actions/setup-python@v2
         with:
