@@ -112,7 +112,7 @@ jobs:
           -exportOptionsPlist $EXPORT_OPTS_PATH
 
       - name: Upload application
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: app
           path: ./PhotoAlbumKMP/iosApp/build/ipa/PhotoAlbum.ipa
