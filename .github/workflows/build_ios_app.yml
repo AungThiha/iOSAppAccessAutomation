@@ -54,7 +54,7 @@ jobs:
           APPLE_DISTRIBUTION_CERTIFICATE_ID_BASE64: ${{ secrets.APPLE_DISTRIBUTION_CERTIFICATE_ID_BASE64 }}
           PHOTO_ALBUM_IOS_APP_BUNDLE_ID_BASE64: ${{ secrets.PHOTO_ALBUM_IOS_APP_BUNDLE_ID_BASE64 }}
         run: |
-          python3 ./apple/create_provisioning_profile.py
+          python3 .github/apple/create_provisioning_profile.py
           ls provisioning_profile.mobileprovision
 
           # apply provisioning profile
