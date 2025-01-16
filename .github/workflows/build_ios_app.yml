@@ -59,7 +59,6 @@ jobs:
         run: |
           python3 .github/apple/create_provisioning_profile.py
           ls provisioning_profile.mobileprovision
-          ls .github/apple/provisioning_profile.mobileprovision
 
           # apply provisioning profile
           mkdir -p ~/Library/Developer/Xcode/UserData/Provisioning\ Profiles
