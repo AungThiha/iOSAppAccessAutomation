@@ -14,7 +14,7 @@ def photo_album_ios_app_secrets():
 def create_request_body(device_ids):
 
     current_time = datetime.utcnow()
-    name = f"Photo Album {current_time.strftime('%d/%b/%Y %H:%M')} UTC"
+    name = f"Photo Album {current_time.strftime('%d %b %Y  %H %M')} UTC"
 
     certificate_id, bundle_id = photo_album_ios_app_secrets()
 
