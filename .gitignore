@@ -1,6 +1,7 @@
 # test code
 createprofile.js
 create_db.js
+__pycache__
 
 # Logs
 .DS_Store
