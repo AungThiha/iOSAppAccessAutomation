@@ -69,14 +69,16 @@ jobs:
 
           # apply provisioning profile
           mkdir -p ~/Library/Developer/Xcode/UserData/Provisioning\ Profiles
-          cp ./provisioning_profile.mobileprovision ~/Library/Developer/Xcode/UserData/Provisioning\ Profiles
+          cp provisioning_profile.mobileprovision ~/Library/Developer/Xcode/UserData/Provisioning\ Profiles
+          ls provisioning_profile.mobileprovision ~/Library/Developer/Xcode/UserData/Provisioning\ Profiles/provisioning_profile.mobileprovision
 
           # cp provisioning profile into two places to make sure it works
           mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
-          cp ./provisioning_profile.mobileprovision ~/Library/MobileDevice/Provisioning\ Profiles
+          cp provisioning_profile.mobileprovision ~/Library/MobileDevice/Provisioning\ Profiles
+          ls provisioning_profile.mobileprovision ~/Library/MobileDevice/Provisioning\ Profiles/provisioning_profile.mobileprovision
 
       - name: Checkout PhotoAlbumKMP repo to a directory
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           repository: AungThiha/PhotoAlbumKMP
           path: ./PhotoAlbumKMP  # This will clone it into the "PhotoAlbumKMP" directory
