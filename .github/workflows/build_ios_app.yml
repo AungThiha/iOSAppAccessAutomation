@@ -121,7 +121,7 @@ jobs:
           # Replace the placeholder PROFILE_NAME with the actual value
           EXPORT_OPTIONS_PLIST_CONTENT=$(echo "$EXPORT_OPTIONS_PLIST_TEMPLATE" | sed "s/PROFILE_NAME/$PROFILE_NAME/")
 
-          # Write export option list do disk
+          # Write export option list to disk
           echo "$EXPORT_OPTIONS_PLIST_CONTENT" > $EXPORT_OPTS_PATH
 
           xcodebuild -exportArchive \
