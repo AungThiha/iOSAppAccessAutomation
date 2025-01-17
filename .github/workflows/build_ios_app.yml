@@ -52,6 +52,7 @@ jobs:
           pip install pyjwt cryptography requests
       
       - name: Create provisioning profile
+        id: create_provisioning_profile
         env:
           APPLE_CONNECT_API_KEY_BASE64: ${{ secrets.APPLE_CONNECT_API_KEY_BASE64 }}
           APPLE_CONNECT_PRIVATE_KEY_ISSUER_ID_BASE64: ${{ secrets.APPLE_CONNECT_PRIVATE_KEY_ISSUER_ID_BASE64 }}
@@ -69,6 +70,10 @@ jobs:
           # cp provisioning profile into another place to make sure it works
           mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
           cp ./provisioning_profile.mobileprovision ~/Library/MobileDevice/Provisioning\ Profiles
+
+          PROFILE_NAME=$(security cms -D -i ./provisioning_profile.mobileprovision | plutil -extract Name raw -o - -)
+          echo "Profile Name: $PROFILE_NAME"
+          echo "PROFILE_NAME=$PROFILE_NAME" >> $GITHUB_OUTPUT
 
       - name: Checkout PhotoAlbumKMP repo to a directory
         uses: actions/checkout@v3
@@ -88,10 +93,8 @@ jobs:
       - name: Build archive
         env:
           OVERRIDE_KOTLIN_BUILD_IDE_SUPPORTED: 'NO'
+          PROFILE_NAME: ${{ steps.create_provisioning_profile.outputs.PROFILE_NAME }}
         run: |
-          PROFILE_NAME=$(security cms -D -i ./provisioning_profile.mobileprovision | plutil -extract Name raw -o - -)
-          echo "Profile Name: $PROFILE_NAME"
-
           cd ./PhotoAlbumKMP/iosApp
 
           xcodebuild -project ./iosApp.xcodeproj \
@@ -105,6 +108,7 @@ jobs:
       - name: Export ipa
         env:
           EXPORT_OPTIONS_PLIST_BASE64: ${{ secrets.EXPORT_OPTIONS_PLIST_BASE64 }}
+          PROFILE_NAME: ${{ steps.create_provisioning_profile.outputs.PROFILE_NAME }}
         run: |
 
           cd ./PhotoAlbumKMP/iosApp
@@ -115,7 +119,8 @@ jobs:
           xcodebuild -exportArchive \
           -archivePath ./build/iosApp.xcarchive \
           -exportPath ./build/ipa \
-          -exportOptionsPlist $EXPORT_OPTS_PATH
+          -exportOptionsPlist $EXPORT_OPTS_PATH \
+          PROVISIONING_PROFILE_SPECIFIER="$PROFILE_NAME"
 
       - name: Upload application
         uses: actions/upload-artifact@v4
