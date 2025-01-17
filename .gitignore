@@ -6,6 +6,7 @@ provisioning_profile.mobileprovision
 list_apple_certificates.py
 list_provisioning_profile.py
 list_bundles.py
+aung_list_bundles.py
 
 # Logs
 .DS_Store
