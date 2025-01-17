@@ -65,6 +65,9 @@ jobs:
           mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
           cp ./provisioning_profile.mobileprovision ~/Library/MobileDevice/Provisioning\ Profiles
 
+          PROFILE_NAME=$(security cms -D -i ./provisioning_profile.mobileprovision | plutil -extract Name raw -o - -)
+          echo "Name: $PROFILE_NAME"
+
       - name: Checkout PhotoAlbumKMP repo to a directory
         uses: actions/checkout@v2
         with:
@@ -86,7 +89,7 @@ jobs:
         run: |
           cd ./PhotoAlbumKMP/iosApp
 
-          PROFILE_NAME=$(security cms -D -i provisioning_profile.mobileprovision | plutil -extract Name raw -o - -)
+          PROFILE_NAME=$(security cms -D -i ./provisioning_profile.mobileprovision | plutil -extract Name raw -o - -)
           echo "Name: $PROFILE_NAME"
 
           xcodebuild -project ./iosApp.xcodeproj \

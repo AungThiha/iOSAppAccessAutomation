@@ -15,20 +15,15 @@ jobs:
       - name: Install the Apple distribution certificate
         env:
           APPLE_DISTRIBUTION_CERTIFICATE_BASE64: ${{ secrets.APPLE_DISTRIBUTION_CERTIFICATE_BASE64 }}
-          APPLE_DISTRIBUTION_PRIVATE_KEY_BASE64: ${{ secrets.APPLE_DISTRIBUTION_PRIVATE_KEY_BASE64 }}
           APPLE_DISTRIBUTION_CERTIFICATE_PASSWORD: ${{ secrets.APPLE_DISTRIBUTION_CERTIFICATE_PASSWORD_BASE64 }}
           KEYCHAIN_PASSWORD: ${{ secrets.TEMP_KEYCHAIN_PASSWORD }}
         run: |
           # create variables
           DISTRIBUTION_CERTIFICATE_PATH=distribution_certificate.p12
-          DISTRIBUTION_PRIVATE_KEY_PATH=distribution_private_key.p12
           KEYCHAIN_PATH=app-signing.keychain-db
 
           # import certificate from secrets
           echo -n "$APPLE_DISTRIBUTION_CERTIFICATE_BASE64" | base64 --decode -o $DISTRIBUTION_CERTIFICATE_PATH
-
-          # import private key from secrets
-          echo -n "$APPLE_DISTRIBUTION_PRIVATE_KEY_BASE64" | base64 --decode -o $DISTRIBUTION_PRIVATE_KEY_PATH
 
           # create temporary keychain
           security create-keychain -p "$KEYCHAIN_PASSWORD" $KEYCHAIN_PATH
@@ -39,9 +34,7 @@ jobs:
           # import certificate to keychain
           security import $DISTRIBUTION_CERTIFICATE_PATH -P "$APPLE_DISTRIBUTION_CERTIFICATE_PASSWORD" -A -t cert -f pkcs12 -k $KEYCHAIN_PATH -T "/usr/bin/codesign"
 
-          # import private key to keychain
-          security import $DISTRIBUTION_PRIVATE_KEY_PATH -P "$APPLE_DISTRIBUTION_CERTIFICATE_PASSWORD" -A -t cert -f pkcs12 -k $KEYCHAIN_PATH -T "/usr/bin/codesign"
-
+          # make keychain open for codesigning
           security set-key-partition-list -S apple-tool:,apple:,codesign:,java: -k "$KEYCHAIN_PASSWORD" $KEYCHAIN_PATH
           security list-keychain -d user -s $KEYCHAIN_PATH
           security find-identity -v -p codesigning
@@ -98,12 +91,16 @@ jobs:
         run: |
           cd ./PhotoAlbumKMP/iosApp
 
+          PROFILE_NAME=$(security cms -D -i ./provisioning_profile.mobileprovision | plutil -extract Name raw -o - -)
+          echo "Profile Name: $PROFILE_NAME"
+
           xcodebuild -project ./iosApp.xcodeproj \
           -scheme iosApp -configuration "Release" \
           -allowProvisioningUpdates \
           -destination generic/platform=iOS \
           -archivePath ./build/iosApp.xcarchive \
-          archive         
+          archive \
+          PROVISIONING_PROFILE_SPECIFIER="$PROFILE_NAME"
 
       - name: Export ipa
         env:
