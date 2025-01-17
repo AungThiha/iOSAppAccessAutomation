@@ -1,4 +1,4 @@
-const verifyiOSAppInviteAlert = require("../middleware/verifyiOSAppInviteAlert");
+const verifyiOSAppInviteAlertJWT = require("../middleware/verifyiOSAppInviteAlertJWT");
 const controller = require("../controllers/user.controller");
 
 module.exports = function(app) {
@@ -13,7 +13,7 @@ module.exports = function(app) {
   app.post(
     "/user/device",
     [
-      verifyiOSAppInviteAlert
+      verifyiOSAppInviteAlertJWT
     ],
     controller.newDevice
   );
