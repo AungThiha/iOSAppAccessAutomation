@@ -89,10 +89,10 @@ jobs:
         env:
           OVERRIDE_KOTLIN_BUILD_IDE_SUPPORTED: 'NO'
         run: |
-          cd ./PhotoAlbumKMP/iosApp
-
           PROFILE_NAME=$(security cms -D -i ./provisioning_profile.mobileprovision | plutil -extract Name raw -o - -)
           echo "Profile Name: $PROFILE_NAME"
+
+          cd ./PhotoAlbumKMP/iosApp
 
           xcodebuild -project ./iosApp.xcodeproj \
           -scheme iosApp -configuration "Release" \
