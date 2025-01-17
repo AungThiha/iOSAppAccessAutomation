@@ -110,7 +110,10 @@
 <h4>Between the GitHub workflow and iOSAppAccessAutomation</h4>
 <p>Task 13 in the task breakdown is to design the secure communication between the GitHub workflow and iOSAppAccessAutomation, which is not started yet.</p>
     <h2>Edge Case</h2>
-    <p>If a user invites themselves using a new email but with a device that's already registered, iOSAppInviteAlert will fail to register the device with Apple Connect API. As a result, the email won't be saved into iOSAppAccessAutomation and this user won't receive notifications for new builds from their new email. This will be addressed in the next phase.</p>
+    <p>If a user invites themselves using a new email but with a device that's already registered,  Apple Connect API will return an error and iOSAppInviteAlert won't call the Github workflow to create a new build.</p>
+    <p>This is not a problem because the latest build will have already been built with a provisioning profile that's configured with the device's UDID since it's already registered.</p>
+    <p>However, the new email will replace the existing email in the <strong>Device</strong> table in iOSAppAccessAutomation so that the new email can receive notifications for new builds. It's designed this way because the history of device ownership is not important in this project.</p>
+    <p>Yes, the old email in <strong>User</strong> table won't be cleared. So, this email will also keep receiving updates for new builds. The user can use either email to access the latest build.</p>
     <h2>Project Revision</h2>
     <p>Initially, it was designed to update the provisioning profile from the Firebase Cloud Function but later, it was found that Apple Connect API does not support updating provisioning profile. It only provides APIs for creating and deleting.</p> 
     <p>Because of it, it's decided to create a new provisioning profile for every build using Github Workflow instead.</p>

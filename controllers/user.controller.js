@@ -13,15 +13,14 @@ async function saveUser(email, transaction) {
 }
 
 async function saveDevice(udid, deviceModel, email, transaction) {
-    await Device.findOrCreate({
-        where: { udid: udid },
-        defaults: {
-            udid: udid,
-            device_model: deviceModel,
-            email: email
-        },
-        transaction
-    });
+    await Device.upsert(
+      {
+        udid: udid,
+        device_model: deviceModel,
+        email: email
+      },
+      { transaction }
+    );
 }
 
 exports.newDevice = async (req, res) => {
