@@ -1,5 +1,6 @@
 const bodyParser = require('body-parser')
 const cors = require('cors')
+const db = require("./models");
 const express = require('express');
 const path = require('path');
 
@@ -22,6 +23,8 @@ app.use('/images', express.static('images'))
 
 require('./routes/user.routes')(app);
 
-app.listen(port, () => {
+db.sequelize.sync().then(() => {
+  app.listen(port, () => {
     console.log(`Server is running on http://localhost:${port}`);
+  });
 });
