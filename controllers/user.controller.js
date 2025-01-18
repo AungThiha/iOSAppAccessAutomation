@@ -59,6 +59,7 @@ exports.emails = async (req, res) => {
     });
     res.status(200).json(emails.map(user => user.email));
   } catch (error) {
+    console.log(error)
     res.status(500).send({ message: "server error" });
   }
 };

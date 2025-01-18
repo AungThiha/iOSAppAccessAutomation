@@ -7,6 +7,7 @@ list_apple_certificates.py
 list_provisioning_profile.py
 list_bundles.py
 aung_list_bundles.py
+emails.txt
 
 # Logs
 .DS_Store
