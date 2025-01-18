@@ -129,6 +129,18 @@ jobs:
           -exportPath ./build/ipa \
           -exportOptionsPlist $EXPORT_OPTS_PATH
 
+      - name: Download email list
+        id: download_email_list
+        run: |
+          EMAIL_LIST=$(python3 .github/iOSAppAccessAutomation/download_emails.py)
+          echo "EMAIL_LIST=$EMAIL_LIST" >> $GITHUB_OUTPUT
+
+      - name: Distribute the build
+        env:
+          EMAIL_LIST: ${{ steps.download_email_list.outputs.EMAIL_LIST }}
+        run: |
+          echo "Not done yet. This is in progress"
+
       - name: Upload application
         uses: actions/upload-artifact@v4
         with:
