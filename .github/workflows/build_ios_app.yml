@@ -164,9 +164,10 @@ jobs:
           IOS_FIREBASE_PROJECT_ID=$(echo -n "$IOS_FIREBASE_PROJECT_ID_BASE64" | base64 --decode)
           
           # https://firebase.google.com/docs/app-distribution/ios/distribute-cli
-          firebase appdistribution:distribute ./PhotoAlbumKMP/iosApp/build/ipa/PhotoAlbum.ipa  \
-          --app $IOS_FIREBASE_PROJECT_ID  \
-          --testers "$EMAIL_LIST"
+          firebase appdistribution:distribute ./PhotoAlbumKMP/iosApp/build/ipa/PhotoAlbum.ipa \
+          --app $IOS_FIREBASE_PROJECT_ID \
+          --testers "$EMAIL_LIST" \
+          --release-notes "provisioning profile update"
 
       - name: Delete all old provisioning profiles
         env:
