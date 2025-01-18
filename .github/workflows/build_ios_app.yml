@@ -47,9 +47,9 @@ jobs:
         with:
           python-version: '3.9'
 
-      # - name: Install dependencies
-      #   run: |
-      #     pip install pyjwt cryptography requests
+      - name: Install dependencies
+        run: |
+          pip install pyjwt cryptography requests
       
       # - name: Create provisioning profile
       #   id: create_provisioning_profile
