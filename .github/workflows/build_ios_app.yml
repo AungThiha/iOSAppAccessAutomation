@@ -157,7 +157,7 @@ jobs:
         run: |
 
           # set absolute file path of google_service_account as env variable
-          echo "GOOGLE_APPLICATION_CREDENTIALS=$(pwd)/google_service_account.json" >> $GITHUB_ENV
+          GOOGLE_APPLICATION_CREDENTIALS=$(pwd)/google_service_account.json
           echo $GOOGLE_APPLICATION_CREDENTIALS
       #     IOS_FIREBASE_PROJECT_ID=$(echo -n "$IOS_FIREBASE_PROJECT_ID_BASE64" | base64 --decode)
           
