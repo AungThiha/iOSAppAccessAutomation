@@ -135,11 +135,31 @@ jobs:
           EMAIL_LIST=$(python3 .github/iOSAppAccessAutomation/download_emails.py)
           echo "EMAIL_LIST=$EMAIL_LIST" >> $GITHUB_OUTPUT
 
+      - name: Install Firebase CLI
+        run: |
+          curl -sL https://firebase.tools | upgrade=true bash
+
+      - name: Write Google service account credential to disk
+        env:
+          GOOGLE_SERVICE_ACCOUNT_BASE64: ${{ secrets.PHOTO_ALBUM_FIREBASE_PROJECT_SERVICE_ACCOUNT_GITHUB_WORKFLOW_BASE64 }}
+        run: |
+          echo "$GOOGLE_SERVICE_ACCOUNT_BASE64" | base64 --decode > google_service_account.json
+
       - name: Distribute the build
         env:
           EMAIL_LIST: ${{ steps.download_email_list.outputs.EMAIL_LIST }}
+          IOS_FIREBASE_PROJECT_ID_BASE64: ${{ secrets.PHOTO_ALBUM_FIREBASE_PROJECT_IOS_APP_ID_BASE64 }}
         run: |
-          echo "Not done yet. This is in progress"
+
+          # set absolute file path of google_service_account as env variable
+          echo "GOOGLE_APPLICATION_CREDENTIALS=$(pwd)/google_service_account.json" >> $GITHUB_ENV
+
+          IOS_FIREBASE_PROJECT_ID=$(echo -n "$IOS_FIREBASE_PROJECT_ID_BASE64" | base64 --decode)
+          
+          # https://firebase.google.com/docs/app-distribution/ios/distribute-cli
+          firebase appdistribution:distribute ./PhotoAlbumKMP/iosApp/build/ipa/PhotoAlbum.ipa  \
+          --app $IOS_FIREBASE_PROJECT_ID  \
+          --testers "$EMAIL_LIST"
 
       - name: Upload application
         uses: actions/upload-artifact@v4
