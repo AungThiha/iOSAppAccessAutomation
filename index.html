@@ -98,15 +98,21 @@
         <img src="images/er_diagram.jpg" class="er_diagram" alt="ER Diagram">
     </div>
     <p>This is used in iOSAppAccessAutomation.</p>
-    <h3>Security</h3>
-    <h4>Between iOSAppInviteAlert and iOSAppAccessAutomation</h4>
-    <p>To ensure only iOSAppInviteAlert can save device information into iOSAppAccessAutomation, an asymmetric encryption called RSA is used. </p>
-<p>iOSAppInviteAlert has a private key used for generating JWTs. The private key is saved in Firebase Cloud Secret Manager as iOSAppInviteAlert is a Firebase Cloud Function.</p>
-<p>iOSAppAccessAutomation has a public key to verify the JWT sent from iOSAppInviteAlert. iOSAppAccessAutomation will reject a request to save device information if the JWT isn’t signed with the matching private key stored in Firebase Cloud Secret Manager. The public key is stored Heroku configuration variables as iOSAppAccessAutomation is deployed on Heroku.</p>
+    <h2 id="security">Security</h2>
+<h3 id="iosappaccessautomation">iOSAppAccessAutomation</h3>
+<p>This server is deployed on Heroku. To enable HTTPS, Heroku uses Server Name Indication (SNI), an extension of the widely supported TLS protocol (<a href="https://devcenter.heroku.com/articles/ssl">Heroku, 2024</a>). This ensures encrypted communication over the network to prevent eavesdropping and man-in-the-middle attacks.</p>
+<h3 id="communications-between-iosappinvitealert-and-iosappaccessautomation">Communications Between iOSAppInviteAlert and iOSAppAccessAutomation</h3>
+<p>To ensure only iOSAppInviteAlert can save device information into iOSAppAccessAutomation, an asymmetric encryption called RSA is used.</p>
+<p>iOSAppInviteAlert has a private key to generate JWTs. This private key is stored in Firebase Cloud Secret Manager as iOSAppInviteAlert is a Firebase Cloud Function.</p>
+<p>iOSAppAccessAutomation has a public key to verify the JWTs from iOSAppInviteAlert. iOSAppAccessAutomation will reject a request to save device information if the JWT isn’t signed with the matching private key stored in Firebase Cloud Secret Manager. The public key is stored in Heroku configuration variables as iOSAppAccessAutomation is deployed on Heroku.</p>
 <p>For an organization, Heroku configuration variables may not be a viable option because Heroku doesn’t provide a way to pick and choose what features of Heroku a team member can have access to. This makes the secret keys visible to anyone who has access to Heroku dashboard. However, for this project, because I’m the sole engineer, this is not an issue.</p>
-<p>As a final note on securing communications between iOSAppInviteAlert and iOSAppAccessAutomation, one improvement that can be done is to rotate the RSA keys to minimize the impact if they’re compromised. This will be done as part of learning secure infrastructure management though the exact date for this isn't set yet. Priorities are reviewed every 4 months.</p>
-<h4>Between the GitHub workflow and iOSAppAccessAutomation</h4>
-<p>Task 13 in the task breakdown is to design the secure communication between the GitHub workflow and iOSAppAccessAutomation, which is not started yet.</p>
+<h3 id="communications-between-the-github-workflow-and-iosappaccessautomation">Communications Between the GitHub workflow and iOSAppAccessAutomation</h3>
+<p>To ensure only the GitHub workflow in this project can download the email list from iOSAppAccessAutomation, the same security design is used.</p>
+<p>The GitHub workflow uses a private key stored in Github Secret to generate JWTs to identify itself when communicating with iOSAppAccessAutomation. iOSAppAccessAutomation verifies these JWTs using a public key stored in Heroku configuration variables.</p>
+<p>Please, note that the RSA key pair used here is not the same the key pair used for communications between iOSAppInviteAlert and iOSAppAccessAutomation. This enables separate access management.</p>
+<h3 id="future-improvement">Future Improvement</h3>
+<p>Rotating the RSA keys periodically would minimize the impact of key compromise. This will be done as part of learning secure infrastructure management though the exact date for this isn't set yet. Priorities are reviewed every 4 months.</p>
+<p>Logging and monitoring will also be done as part of learning secure infrastructure management.</p>
     <h2>Edge Case</h2>
     <p>If a user invites themselves using a new email but with a device that's already registered,  Apple Connect API will return an error and iOSAppInviteAlert won't call the Github workflow to create a new build.</p>
     <p>This is not a problem because the latest build will have already been built with a provisioning profile that's configured with the device's UDID since it's already registered.</p>
@@ -307,15 +313,15 @@
             <td>15</td>
             <td>Design secure communication between the GitHub workflow and iOSAppAccessAutomation backend app</td>
             <td>iOS build GitHub workflow</td>
-            <td>2</td>
-            <td>In Progress</td>
+            <td>1</td>
+            <td>Done</td>
         </tr>
                 <tr>
             <td>16</td>
             <td>Write an API for the GitHub workflow to download the list of emails</td>
             <td>iOSAppAccessAutomation</td>
             <td>2</td>
-            <td>Not Started Yet</td>
+            <td>In Progress</td>
         </tr>
         <tr>
             <td>17</td>
@@ -349,15 +355,11 @@
             <td></td>
             <td><strong>Total</strong></td>
             <td></td>
-            <td><strong>67</strong></td>
+            <td><strong>66</strong></td>
             <td></td>
         </tr>
     </tbody>
 </table>
-
-
-
-
     <h2>Github Repositories</h2>
     <ul>
         <li>
