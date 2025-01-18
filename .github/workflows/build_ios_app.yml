@@ -139,7 +139,6 @@ jobs:
         run: |
           EMAIL_LIST=$(python3 .github/iOSAppAccessAutomation/download_emails.py)
           echo "EMAIL_LIST=$EMAIL_LIST" >> $GITHUB_OUTPUT
-          echo $EMAIL_LIST
 
       - name: Install Firebase CLI
         run: |
