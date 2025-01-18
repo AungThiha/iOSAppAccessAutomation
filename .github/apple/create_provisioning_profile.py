@@ -40,7 +40,7 @@ def create_provisioning_profile(token, device_ids):
     decoded_content = base64.b64decode(profile_content_base64)
     return decoded_content
 
-token = token = get_token()
+token = get_token()
 device_ids = fetch_device_ids(token)
 profile_content = create_provisioning_profile(token, device_ids)
 

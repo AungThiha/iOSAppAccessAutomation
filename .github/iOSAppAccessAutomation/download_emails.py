@@ -3,7 +3,7 @@ import requests
 from generate_jwt import get_token
 
 def get_emails(token):
-    url = "http://localhost:8080/user/emails"
+    url = "https://iosappaccessautomation-9db62b5fb979.herokuapp.com/user/emails"
     headers = {
         "Authorization": f"Bearer {token}"
     }
@@ -18,7 +18,7 @@ def get_emails(token):
 
     return response_json
 
-token = token = get_token()
+token = get_token()
 emails = get_emails(token)
 
 # this is a format required by Firebase CLI
