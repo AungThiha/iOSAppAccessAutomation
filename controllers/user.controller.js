@@ -48,6 +48,7 @@ exports.newDevice = async (req, res) => {
       throw error;
     }
   } catch (error) {
+    console.log(error)
     res.status(500).send({ message: "server error" });
   }
 };
