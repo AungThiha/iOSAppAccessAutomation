@@ -47,7 +47,7 @@ jobs:
         with:
           python-version: '3.9'
 
-      - name: Install dependencies
+      - name: Install Python dependencies
         run: |
           pip install pyjwt cryptography requests
       
@@ -131,6 +131,10 @@ jobs:
 
       - name: Download email list
         id: download_email_list
+        env:
+          IOS_GITHUB_WORKFLOW_PRIVATE_KEY_ID_BASE64: ${{ secrets.IOS_GITHUB_WORKFLOW_PRIVATE_KEY_ID_BASE64 }}
+          IOS_GITHUB_WORKFLOW_PRIVATE_KEY_ISSUER_ID_BASE64: ${{ secrets.IOS_GITHUB_WORKFLOW_PRIVATE_KEY_ISSUER_ID_BASE64 }}
+          IOS_GITHUB_WORKFLOW_PRIVATE_KEY_BASE64: ${{ secrets.IOS_GITHUB_WORKFLOW_PRIVATE_KEY_BASE64 }}
         run: |
           EMAIL_LIST=$(python3 .github/iOSAppAccessAutomation/download_emails.py)
           echo "EMAIL_LIST=$EMAIL_LIST" >> $GITHUB_OUTPUT
