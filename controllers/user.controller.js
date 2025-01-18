@@ -51,3 +51,14 @@ exports.newDevice = async (req, res) => {
     res.status(500).send({ message: "server error" });
   }
 };
+
+exports.emails = async (req, res) => {
+  try {
+    const emails = await User.findAll({
+      attributes: ['email']
+    });
+    res.status(200).json(emails.map(user => user.email));
+  } catch (error) {
+    res.status(500).send({ message: "server error" });
+  }
+};

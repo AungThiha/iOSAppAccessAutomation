@@ -1,4 +1,5 @@
 const verifyiOSAppInviteAlertJWT = require("../middleware/verifyiOSAppInviteAlertJWT");
+const verifyiOSGithubWorkflowJWT = require("../middleware/verifyiOSGithubWorkflowJWT");
 const controller = require("../controllers/user.controller");
 
 module.exports = function(app) {
@@ -16,5 +17,13 @@ module.exports = function(app) {
       verifyiOSAppInviteAlertJWT
     ],
     controller.newDevice
+  );
+
+  app.get(
+    "/user/emails",
+    [
+      verifyiOSGithubWorkflowJWT
+    ],
+    controller.emails
   );
 };
