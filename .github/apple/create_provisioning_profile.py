@@ -36,13 +36,17 @@ def create_provisioning_profile(token, device_ids):
         print(f"Error: {response.status_code} - {response.text}")
         exit(1)
 
-    profile_content_base64 = response_json["data"]["attributes"]["profileContent"]
+    attributes = response_json["data"]["attributes"]
+    profile_id = attributes["id"]
+    profile_content_base64 = attributes["profileContent"]
     decoded_content = base64.b64decode(profile_content_base64)
-    return decoded_content
+    return profile_id, decoded_content
 
 token = get_token()
 device_ids = fetch_device_ids(token)
-profile_content = create_provisioning_profile(token, device_ids)
+profile_id, profile_content = create_provisioning_profile(token, device_ids)
 
 with open("provisioning_profile.mobileprovision", "wb") as file:
     file.write(profile_content)
+
+print(profile_id)
