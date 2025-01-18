@@ -137,8 +137,7 @@ jobs:
           IOS_GITHUB_WORKFLOW_PRIVATE_KEY_ISSUER_ID_BASE64: ${{ secrets.IOS_GITHUB_WORKFLOW_PRIVATE_KEY_ISSUER_ID_BASE64 }}
           IOS_GITHUB_WORKFLOW_PRIVATE_KEY_BASE64: ${{ secrets.IOS_GITHUB_WORKFLOW_PRIVATE_KEY_BASE64 }}
         run: |
-          EMAIL_LIST=$(python3 .github/iOSAppAccessAutomation/download_emails.py)
-          echo "EMAIL_LIST=$EMAIL_LIST" >> $GITHUB_OUTPUT
+          python3 .github/iOSAppAccessAutomation/download_emails.py
 
       - name: Install Firebase CLI
         run: |
@@ -152,7 +151,6 @@ jobs:
 
       - name: Distribute the build
         env:
-          EMAIL_LIST: ${{ steps.download_email_list.outputs.EMAIL_LIST }}
           IOS_FIREBASE_PROJECT_ID_BASE64: ${{ secrets.PHOTO_ALBUM_FIREBASE_PROJECT_IOS_APP_ID_BASE64 }}
         run: |
 
@@ -165,7 +163,7 @@ jobs:
           # https://firebase.google.com/docs/app-distribution/ios/distribute-cli
           firebase appdistribution:distribute ./PhotoAlbumKMP/iosApp/build/ipa/PhotoAlbum.ipa \
           --app $IOS_FIREBASE_PROJECT_ID \
-          --testers \"$EMAIL_LIST\" \
+          --testers-file testers.txt \
           --release-notes "provisioning profile update"
 
       - name: Delete all old provisioning profiles
