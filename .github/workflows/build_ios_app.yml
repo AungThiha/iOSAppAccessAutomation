@@ -173,4 +173,4 @@ jobs:
           APPLE_CONNECT_PRIVATE_KEY_BASE64: ${{ secrets.APPLE_CONNECT_PRIVATE_KEY_BASE64 }}
           NEWLY_CREATED_PROFILE_ID: ${{ steps.create_provisioning_profile.NEWLY_CREATED_PROFILE_ID }}
         run: |
-          python3 .github/apple/delete_provisioning_profiles.py NEWLY_CREATED_PROFILE_ID
+          python3 .github/apple/delete_provisioning_profiles.py $NEWLY_CREATED_PROFILE_ID
