@@ -153,7 +153,7 @@ jobs:
 
       - name: Distribute the build
         env:
-          # EMAIL_LIST: ${{ steps.download_email_list.outputs.EMAIL_LIST }}
+          EMAIL_LIST: ${{ steps.download_email_list.outputs.EMAIL_LIST }}
           IOS_FIREBASE_PROJECT_ID_BASE64: ${{ secrets.PHOTO_ALBUM_FIREBASE_PROJECT_IOS_APP_ID_BASE64 }}
         run: |
 
