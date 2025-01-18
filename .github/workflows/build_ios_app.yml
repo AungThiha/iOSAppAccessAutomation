@@ -163,7 +163,7 @@ jobs:
 
           IOS_FIREBASE_PROJECT_ID=$(echo -n "$IOS_FIREBASE_PROJECT_ID_BASE64" | base64 --decode)
           
-          firebase appdistribution:group:create "QA team" qa-team --app $IOS_FIREBASE_PROJECT_ID
+          firebase appdistribution:group:create "QA team" qa-team
           # # https://firebase.google.com/docs/app-distribution/ios/distribute-cli
           # firebase appdistribution:distribute ./PhotoAlbumKMP/iosApp/build/ipa/PhotoAlbum.ipa  \
           # --app $IOS_FIREBASE_PROJECT_ID  \
