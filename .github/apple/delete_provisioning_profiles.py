@@ -47,7 +47,7 @@ if not profiles:
 profile_ids = [profile.get[id] for profile in profiles if profile.get('id')]
 
 if excluded_profile_id not in profile_ids:
-    print(f"Profile ID {excluded_profile_id} not found in profiles. No deletions performed.")
+    print(f"Profile ID to be excluded not found in profiles. No deletions performed.")
     exit(0)
 
 for profile_id in profile_ids:
