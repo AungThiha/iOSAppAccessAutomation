@@ -166,7 +166,7 @@ jobs:
           # https://firebase.google.com/docs/app-distribution/ios/distribute-cli
           firebase appdistribution:distribute ./PhotoAlbumKMP/iosApp/build/ipa/PhotoAlbum.ipa \
           --app $IOS_FIREBASE_PROJECT_ID \
-          --testers "$EMAIL_LIST" \
+          --testers \"$EMAIL_LIST\" \
           --release-notes "provisioning profile update"
 
       - name: Delete all old provisioning profiles
