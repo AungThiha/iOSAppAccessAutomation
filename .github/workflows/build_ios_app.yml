@@ -159,16 +159,17 @@ jobs:
           # set absolute file path of google_service_account as env variable
           GOOGLE_APPLICATION_CREDENTIALS=$(pwd)/google_service_account.json
           echo $GOOGLE_APPLICATION_CREDENTIALS
-      #     IOS_FIREBASE_PROJECT_ID=$(echo -n "$IOS_FIREBASE_PROJECT_ID_BASE64" | base64 --decode)
-          
-      #     # https://firebase.google.com/docs/app-distribution/ios/distribute-cli
-      #     firebase appdistribution:distribute ./PhotoAlbumKMP/iosApp/build/ipa/PhotoAlbum.ipa  \
-      #     --app $IOS_FIREBASE_PROJECT_ID  \
-      #     --testers "$EMAIL_LIST"
 
-      # - name: Upload application
-      #   uses: actions/upload-artifact@v4
-      #   with:
-      #     name: app
-      #     path: ./PhotoAlbumKMP/iosApp/build/ipa/PhotoAlbum.ipa
-      #     retention-days: 3
+          IOS_FIREBASE_PROJECT_ID=$(echo -n "$IOS_FIREBASE_PROJECT_ID_BASE64" | base64 --decode)
+          
+          # https://firebase.google.com/docs/app-distribution/ios/distribute-cli
+          firebase appdistribution:distribute ./PhotoAlbumKMP/iosApp/build/ipa/PhotoAlbum.ipa  \
+          --app $IOS_FIREBASE_PROJECT_ID  \
+          --testers "$EMAIL_LIST"
+
+      - name: Upload application
+        uses: actions/upload-artifact@v4
+        with:
+          name: app
+          path: ./PhotoAlbumKMP/iosApp/build/ipa/PhotoAlbum.ipa
+          retention-days: 3
