@@ -36,9 +36,9 @@ def create_provisioning_profile(token, device_ids):
         print(f"Error: {response.status_code} - {response.text}")
         exit(1)
 
-    attributes = response_json["data"]["attributes"]
-    profile_id = attributes["id"]
-    profile_content_base64 = attributes["profileContent"]
+    data = response_json["data"]
+    profile_id = data["id"]
+    profile_content_base64 = data["attributes"]["profileContent"]
     decoded_content = base64.b64decode(profile_content_base64)
     return profile_id, decoded_content
 
