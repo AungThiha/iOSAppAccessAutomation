@@ -32,9 +32,24 @@ def delete_profile(token, proifile_id):
         exit(1)
         
 excluded_profile_id = sys.argv[1]
+
+if not excluded_profile_id or excluded_profile_id.isspace():
+    print(f"ID of the profile to be excluded from deletion needs to be passed in as an argument")
+    exit(1)
+
 token = get_token()
 profiles = get_profiles(token)
-for profile in profiles:
-    profile_id = profile["id"]
+
+if not profiles:
+    print("No profiles found to process")
+    exit(0)
+
+profile_ids = [profile.get[id] for profile in profiles if profile.get('id')]
+
+if excluded_profile_id not in profile_ids:
+    print(f"Profile ID {excluded_profile_id} not found in profiles. No deletions performed.")
+    exit(0)
+
+for profile_id in profile_ids:
     if profile_id != excluded_profile_id:
         delete_profile(token, profile_id) 
