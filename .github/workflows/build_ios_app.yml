@@ -171,4 +171,5 @@ jobs:
       - name: Delete all old provisioning profiles
         env:
           NEWLY_CREATED_PROFILE_ID: ${{ steps.create_provisioning_profile.NEWLY_CREATED_PROFILE_ID }}
+        run: |
           python3 .github/apple/delete_provisioning_profiles.py NEWLY_CREATED_PROFILE_ID
