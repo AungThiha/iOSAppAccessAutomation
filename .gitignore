@@ -8,6 +8,7 @@ list_provisioning_profile.py
 list_bundles.py
 aung_list_bundles.py
 emails.txt
+.local_testing
 
 # Logs
 .DS_Store
