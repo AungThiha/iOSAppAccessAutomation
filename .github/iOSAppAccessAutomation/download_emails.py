@@ -25,5 +25,5 @@ emails = get_emails(token)
 # It's without '[' and ']' but still has ','
 result = ', '.join(emails) 
 
-with open("testers.txt", "wb") as file:
-    file.write(result.encode("utf-8"))
+with open("testers.txt", "w") as file:
+    file.write(result)
