@@ -19,6 +19,7 @@ runs:
 
     - name: Read previous build number
       id: read_build
+      shell: bash
       run: |
         if [ -f .build-number ]; then
           PREVIOUS_BUILD_NUMBER=$(cat .build-number)
@@ -30,6 +31,7 @@ runs:
 
     - name: Increase build number
       id: increase_build_number
+      shell: bash
       run: |
         NEW_BUILD_NUMBER=$(( ${{ env.PREVIOUS_BUILD_NUMBER }} + 1 ))
         echo "New build number: $NEW_BUILD_NUMBER"
@@ -43,5 +45,6 @@ runs:
         key: ${{ inputs.cache-key }}
 
     - name: Set output
+      shell: bash
       run: |
         echo "::set-output name=NEW_BUILD_NUMBER::${{ env.NEW_BUILD_NUMBER }}"
