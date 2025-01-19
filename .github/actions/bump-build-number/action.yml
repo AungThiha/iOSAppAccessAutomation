@@ -1,0 +1,47 @@
+name: Bump Build Number
+description: Increase the build number using GitHub Actions cache
+inputs:
+  cache-key:
+    description: The cache key to identify the build number
+    required: true
+outputs:
+  new:
+    description: The new build number
+runs:
+  using: "composite"
+  steps:
+    - name: Restore build number from cache
+      id: restore_cache
+      uses: actions/cache@v3
+      with:
+        path: .build-number
+        key: ${{ inputs.cache-key }}
+
+    - name: Read previous build number
+      id: read_build
+      run: |
+        if [ -f .build-number ]; then
+          PREVIOUS_BUILD_NUMBER=$(cat .build-number)
+        else
+          PREVIOUS_BUILD_NUMBER=2
+        fi
+        echo "Previous build number: $PREVIOUS_BUILD_NUMBER"
+        echo "PREVIOUS_BUILD_NUMBER=$PREVIOUS_BUILD_NUMBER" >> $GITHUB_ENV
+
+    - name: Increase build number
+      id: increase_build_number
+      run: |
+        NEW_BUILD_NUMBER=$(( ${{ env.PREVIOUS_BUILD_NUMBER }} + 1 ))
+        echo "New build number: $NEW_BUILD_NUMBER"
+        echo $NEW_BUILD_NUMBER > .build-number
+        echo "NEW_BUILD_NUMBER=$NEW_BUILD_NUMBER" >> $GITHUB_ENV
+
+    - name: Save build number to cache
+      uses: actions/cache@v3
+      with:
+        path: .build-number
+        key: ${{ inputs.cache-key }}
+
+    - name: Set output
+      run: |
+        echo "::set-output name=NEW_BUILD_NUMBER::${{ env.NEW_BUILD_NUMBER }}"

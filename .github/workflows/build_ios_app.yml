@@ -91,6 +91,24 @@ jobs:
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v3
 
+      - name: Retrieve new iOS build number
+        id: bump_ios_build_number
+        uses: ./.github/actions/bump-build-number
+        with:
+          cache-key: "ios-build-number-cache"
+
+      - name: Set new iOS build number in Info.plist
+        NEW_IOS_BUILD_NUMBER: ${{ steps.bump.outputs.NEW_BUILD_NUMBER }}
+        with:
+          cache-key: "ios-build-number-cache"
+        run: |
+          cd ./PhotoAlbumKMP/iosApp/iosApp
+
+          /usr/libexec/PlistBuddy -c "Set :CFBundleVersion \
+          ${{ steps.bump.outputs.NEW_IOS_BUILD_NUMBER }}" \
+          Info.plist
+          cat Info.plist
+
       - name: Build archive
         env:
           OVERRIDE_KOTLIN_BUILD_IDE_SUPPORTED: 'NO'
@@ -164,7 +182,7 @@ jobs:
           firebase appdistribution:distribute ./PhotoAlbumKMP/iosApp/build/ipa/PhotoAlbum.ipa \
           --app $IOS_FIREBASE_PROJECT_ID \
           --testers-file testers.txt \
-          --release-notes "provisioning profile update"
+          --release-notes "Firebase does not send emails to the testers if the build number is not increased. The change in this version only involves building with a new provisioning profile to allow acces to new devices and increasing the build version. Nothing else is changed."
 
       - name: Delete all old provisioning profiles
         env:
