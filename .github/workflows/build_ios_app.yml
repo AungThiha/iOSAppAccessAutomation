@@ -98,15 +98,13 @@ jobs:
           cache-key: "ios-build-number-cache"
 
       - name: Set new iOS build number in Info.plist
-        env:
-          NEW_IOS_BUILD_NUMBER: ${{ steps.ios_build_number.outputs.NEW_BUILD_NUMBER }}
         run: |
           cd ./PhotoAlbumKMP/iosApp/iosApp
-          echo $NEW_IOS_BUILD_NUMBER
-          
+          echo $NEW_BUILD_NUMBER
+
+          # NEW_BUILD_NUMBER comes from the composite action in ./.github/actions/bump-build-number 
           /usr/libexec/PlistBuddy \
-          -c "Set :CFBundleVersion" \
-          $NEW_IOS_BUILD_NUMBER \
+          -c "Set :CFBundleVersion $NEW_BUILD_NUMBER" \
           Info.plist
           cat Info.plist
 

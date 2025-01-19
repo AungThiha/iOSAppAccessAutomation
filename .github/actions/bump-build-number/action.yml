@@ -33,7 +33,7 @@ runs:
       id: increase_build_number
       shell: bash
       run: |
-        NEW_BUILD_NUMBER=$(( ${{ env.PREVIOUS_BUILD_NUMBER }} + 1 ))
+        NEW_BUILD_NUMBER=2
         echo "New build number: $NEW_BUILD_NUMBER"
         echo $NEW_BUILD_NUMBER > .build-number
         echo "NEW_BUILD_NUMBER=$NEW_BUILD_NUMBER" >> $GITHUB_ENV
