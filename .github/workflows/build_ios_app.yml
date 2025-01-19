@@ -180,7 +180,7 @@ jobs:
           firebase appdistribution:distribute ./PhotoAlbumKMP/iosApp/build/ipa/PhotoAlbum.ipa \
           --app $IOS_FIREBASE_PROJECT_ID \
           --testers-file testers.txt \
-          --release-notes "Firebase does not send emails to the testers if the build number is not increased. The change in this version only involves building with a new provisioning profile to allow acces to new devices and increasing the build version. Nothing else is changed."
+          --release-notes "Firebase does not send emails to the testers if the build number is not increased. The change in this version only involves building with a new provisioning profile to allow new devices to acces the app and increasing the build version. Nothing else is changed."
 
       - name: Delete all old provisioning profiles
         env:
