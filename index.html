@@ -51,31 +51,34 @@
     <h1>iOS App Access Automation</h1>
 
     <h2 id="background">Background</h2>
-    <p>Apple restricts devices from installing and using apps from outside its official app market, App Store, without establishing a form of trust between the device and the app’s developer through the Apple Developer Program. Firebase simplifies this process.</p>
-    <p>However, when there’s a timezone difference, it can take up to 24 hours until the users can install the app.</p>
-    <p>This project aims to solve this problem by automating the work required on the developer’s side to grant access to the app after a user registers their device with Firebase.</p>
+    <p>Apple restricts devices from installing and using apps from outside its official app market, App Store, without establishing a form of trust between the device and the app’s developer through the Apple Developer Program. Firebase simplifies this process by providing tools for app distribution.</p>
+    <p>However, the process required manual work from the engineer to register devices and manage access. When there's a timezone difference between the engineer and new users, it could take a day for the engineer to see a new access request.</p>
+    <p>
+    This project automated the work required on the developer's side to grant access to the app after a user registers their device with Firebase. Users now only need to wait approximately 20 minutes after registering their device with Firebase, after which they will receive an email from Firebase that informs the build is ready to be downloaded and installed.</p>
     <h2 id="justification">Justification</h2>
     <p>There’s no question whether automating the process of building and distribution is worth it because doing it manually would cost a substantial amount of time to make small releases that are necessary for identifying issues early.</p>
-<p>However, automating the registration of device UDIDs and the management of the email list required by the Firebase CLI may seem unnecessary but it mitigates the risk of human errors like entering the wrong UDID or email address. It also protects engineers from frequent context switching as they would otherwise need to switch to these tasks every time someone new needs access.</p>
-    <h2>How It Works for Users</h2>
-    <p>
-        Once this project is functional, users will only need to wait approximately 1 hour after registering their device with Firebase, after which they will receive an email from Firebase that informs the build is ready to be downloaded and installed.
-    </p>
+<p>Automating the registration of device UDIDs and the management of the email list required by the Firebase CLI may seem unnecessary, but it provides several benefits. It mitigates the risk of human errors like entering the wrong UDID or email address. It also protects engineers from frequent context switching as they would otherwise need to switch to these tasks every time someone new needs access. Lastly, it eliminates the need for coordination between testers and engineers just for app access.</p>
     <h2>Personal Goal</h2>
     <p>
         Estimating something unknown has always been problematic for me. Sometimes, I estimate 16 hours and it's done in 4 hours. Sometimes, it's the other way around. This makes stakeholders unhappy because it's difficult for them to manage project timelines.
     </p>
     <p>
-        The project is being carried out with a focus on figuring out what can be done to address this weakness of mine and applying the findings along the way.
-    </p>
-    <p>
-        All lessons learned so far are highlighted under the section titled "Lesson Learned".
+        This project was carried out with a focus on figuring out what can be done to address this weakness of mine and applying the findings along the way. All lessons learned so far are highlighted under the section titled "Lesson Learned".
     </p>
     <h2>Project Timeline</h2>
     <ul>
         <li><strong>Start Date:</strong> 16 Dec 2024</li>
-        <li><strong>Expected Completion Date:</strong> 31 Jan 2025</li>
-        <li><strong>Working Hours a Week:</strong> 12-15 hours</li>
+        <li><strong>Completed Date:</strong> 20 Jan 2025</li>
+        <li><strong>Working Hours a Week:</strong> 15 hours</li>
+    </ul>
+    <h2 id="skills-demonstrated">Skills Demonstrated</h2>
+    <ul>
+    <li>Security Fundamentals</li>
+    <li>Automation Engineering (CI/CD)</li>
+    <li>RESTful API Development</li>
+    <li>Problem Analysis</li>
+    <li>System Design and Architecture</li>
+    <li>Continuous Growth through Reflection</li>
     </ul>
     <h2>Design</h2>
     <p>The project consists of three main components:</p>
@@ -88,7 +91,7 @@
 </ul>
 <p><strong>Firebase (App Distribution)</strong> and <strong>Apple Developer Account (via Apple Connect API)</strong> are external services that do not require any coding.</p>
 <p>iOS Build GitHub Workflow is in <a href="https://github.com/AungThiha/iOSAppAccessAutomation" target="_blank">iOSAppAccessAutomation repo</a>. Normally, it would be in <a href="https://github.com/AungThiha/PhotoAlbumKMP" target="_blank">the KMP project's repo</a> but because the KMP project's repo is submitted as part of a university assignment, it's locked until I get my final result. Once unlocked, iOS Build GitHub Workflow will be moved into the KMP project's repo. This is in May 2025.</p>
-<p>Please note that the Node.js service in <strong>iOSAppAccessAutomation</strong> isn't necessary if the emails are managed as <a href="https://firebase.google.com/docs/app-distribution/add-remove-testers?platform=ios#add-remove-testers-group" target="_blank">tester groups</a> as the Firebase CLI allows distribution by groups. However, during the assignment, the automation aspect wasn't factored into implementation decisions, which led to the use of a Firebase invite link that doesn't add the user's email to a group. As a result, this automation project needs a service to manage an email list.</p>
+<p>Please note that the Node.js service in <strong>iOSAppAccessAutomation</strong> isn't necessary if the emails are managed as <a href="https://firebase.google.com/docs/app-distribution/add-remove-testers?platform=ios#add-remove-testers-group" target="_blank">tester groups</a>. As the Firebase CLI allows distribution by a group name, a group name can be set the GitHub workflow only once and re-used for all builds. However, during the assignment, the automation aspect wasn't factored into implementation decisions. This led to the use of a Firebase invite link which doesn't add the user's email to a group. As a result, this automation project needs a service to manage an email list.</p>
     <h3>Sequence Diagram</h3>
     <div class="image-container">
         <img src="images/diagram2.jpg" class="responsive-image" alt="Diagram">
@@ -99,6 +102,10 @@
     </div>
     <p>This is used in iOSAppAccessAutomation.</p>
     <h2 id="security">Security</h2>
+<h3>Using Third-party GitHub Actions Sparingly</h3>
+<p>
+    Dependency Chain Abuse is listed in <a href="https://owasp.org/www-project-top-10-ci-cd-security-risks/" target="_blank">the OWASP Top 10 CI/CD Security Risks</a>. Therefore, any third-party GitHub action that requires sensitive credentials, such as API keys or access tokens, as arguments is not used in this project.
+</p>
 <h3 id="iosappaccessautomation">iOSAppAccessAutomation</h3>
 <p>This server is deployed on Heroku. To enable HTTPS, Heroku uses Server Name Indication (SNI), an extension of the widely supported TLS protocol (<a href="https://devcenter.heroku.com/articles/ssl">Heroku, 2024</a>). This ensures encrypted communication over the network to prevent eavesdropping and man-in-the-middle attacks.</p>
 <h3 id="communications-between-iosappinvitealert-and-iosappaccessautomation">Communications Between iOSAppInviteAlert and iOSAppAccessAutomation</h3>
@@ -108,19 +115,19 @@
 <p>For an organization, Heroku configuration variables may not be a viable option because Heroku doesn’t provide a way to pick and choose what features of Heroku a team member can have access to. This makes the secret keys visible to anyone who has access to Heroku dashboard. However, for this project, because I’m the sole engineer, this is not an issue.</p>
 <h3 id="communications-between-the-github-workflow-and-iosappaccessautomation">Communications Between the GitHub workflow and iOSAppAccessAutomation</h3>
 <p>To ensure only the GitHub workflow in this project can download the email list from iOSAppAccessAutomation, the same security design is used.</p>
-<p>The GitHub workflow uses a private key stored in Github Secret to generate JWTs to identify itself when communicating with iOSAppAccessAutomation. iOSAppAccessAutomation verifies these JWTs using a public key stored in Heroku configuration variables.</p>
+<p>The GitHub workflow uses a private key stored in GitHub Secret to generate JWTs to identify itself when communicating with iOSAppAccessAutomation. iOSAppAccessAutomation verifies these JWTs using a public key stored in Heroku configuration variables.</p>
 <p>Please, note that the RSA key pair used here is not the same the key pair used for communications between iOSAppInviteAlert and iOSAppAccessAutomation. This enables separate access management.</p>
 <h3 id="future-improvement">Future Improvement</h3>
 <p>Rotating the RSA keys periodically would minimize the impact of key compromise. This will be done as part of learning secure infrastructure management though the exact date for this isn't set yet. Priorities are reviewed every 4 months.</p>
 <p>Logging and monitoring will also be done as part of learning secure infrastructure management.</p>
     <h2>Edge Case</h2>
-    <p>If a user invites themselves using a new email but with a device that's already registered,  Apple Connect API will return an error and iOSAppInviteAlert won't call the Github workflow to create a new build.</p>
+    <p>If a user invites themselves using a new email but with a device that's already registered, Apple Connect API will return an error and iOSAppInviteAlert won't call the GitHub workflow to create a new build.</p>
     <p>This is not a problem because the latest build will have already been built with a provisioning profile that's configured with the device's UDID since it's already registered.</p>
-    <p>However, the new email will replace the existing email in the <strong>Device</strong> table in iOSAppAccessAutomation so that the new email can receive notifications for new builds. It's designed this way because the history of device ownership is not important in this project.</p>
-    <p>As for the old email in <strong>User</strong> table, since it won't be cleared, it will continue to receive updates for new builds. This means the user can use either email to access the latest build.</p>
+    <p>However, the new email will replace the existing email in the <strong>device</strong> table in iOSAppAccessAutomation so that the new email can receive notifications for new builds. It's designed this way because the history of device ownership is not important in this project.</p>
+    <p>As for the old email in <strong>user</strong> table, since it won't be cleared, it will continue to receive updates for new builds. This means the user can use either email to access the latest build.</p>
     <h2>Project Revision</h2>
     <p>Initially, it was designed to update the provisioning profile from the Firebase Cloud Function but later, it was found that Apple Connect API does not support updating provisioning profile. It only provides APIs for creating and deleting.</p> 
-    <p>Because of it, it's decided to create a new provisioning profile for every build using Github Workflow instead.</p>
+    <p>Because of it, it's decided to create a new provisioning profile for every build using GitHub Workflow instead.</p>
     <p>Creating a provisioning profile returns the created provisioning profile as part of the response. Therefore, the task number 3 in the Task Breakdown was discarded.</p>
     <p>The task number 7 is also canceled but because the time spent on this task revealed the missing information that led to this revision, it's still marked as 1 hour spent on this task.</p>
     <p>This revision increased the project timeline by 13 hours.</p>
@@ -151,7 +158,7 @@
         </tr>
         <tr>
             <td>2</td>
-            <td>Distribution Certificate in Github Actions
+            <td>Distribution Certificate in GitHub Actions
                 <ul>
                     <li>Export the Certificate from Xcode</li>
                     <li>Base64-encode the certificate and save it in GitHub Secrets</li>
@@ -165,7 +172,7 @@
         </tr>
         <tr>
             <td>3</td>
-            <td>Provisioning Profile in Github Actions
+            <td>Provisioning Profile in GitHub Actions
                 <ul>
                     <li>Create a Private Key to access Apple Connect API</li>
                     <li>A Python script to download the Provisioning Profile</li>
@@ -179,7 +186,7 @@
         </tr>
         <tr>
             <td>4</td>
-            <td>Build the iOS app using Github Actions
+            <td>Build the iOS app using GitHub Actions
                 <ul>
                     <li>Learn the basic usage of xcodebuild</li>
                     <li>Create archive</li>
@@ -270,7 +277,7 @@
         </tr>
         <tr>
             <td>12</td>
-            <td>Download the device list from Apple in Github Actions
+            <td>Download the device list from Apple in GitHub Actions
                 <ul>
                     <li>Re-use the Private Key from task 3</li>
                     <li>A Python script to download the device list</li>
@@ -282,7 +289,7 @@
         </tr>
         <tr>
             <td>13</td>
-            <td>Create a Provisioning Profile from Github Actions
+            <td>Create a Provisioning Profile from GitHub Actions
                 <ul>
                     <li>Update the Python script from task 12 to include this</li>
                     <li>Generate Provisioning Profile name on the fly</li>
@@ -296,10 +303,10 @@
         </tr>
         <tr>
             <td>14</td>
-            <td>Trigger iOS build process in Github Actions through Firebase Cloud Functions
+            <td>Trigger iOS build process in GitHub Actions through Firebase Cloud Functions
             <ul>
                     <li>Learn how to use GitHub Actions' Rest APIs for this</li>
-                    <li>Generate a github access token (In github's terms, a fine-grained personal access token)</li>
+                    <li>Generate a GitHub access token (In GitHub's terms, a fine-grained personal access token)</li>
                     <li>Set the token in Firebase Secret Manager</li>
                     <li>Write axios request to trigger the workflow</li>
                     <li>Use the axios request in the device registration listenter</li>
@@ -334,10 +341,10 @@
             <td>17</td>
             <td>Download the list of emails from iOSAppAccessAutomation
             <ul>
-                <li>Enter private key, key ID and issuer ID into Github Secrets</li>
+                <li>Enter private key, key ID and issuer ID into GitHub Secrets</li>
                 <li>Python script to generate JWT</li>
                 <li>Another Python script to make a HTTP request and print the result</li>
-                <li>Update the Github workflow</li>
+                <li>Update the GitHub workflow</li>
             </ul>
             </td>
             <td>iOS build GitHub workflow</td>
@@ -348,10 +355,10 @@
             <td>18</td>
             <td>Distribute the app through Firebase App Distribution
             <ul>
-                <li>Save iOS Firebase project ID in Github Secrets</li>
+                <li>Save iOS Firebase project ID in GitHub Secrets</li>
                 <li>Create Google service account and export credential json</li>
-                <li>Save Google service account credential json in Github Secrets</li>
-                <li>Make the Github workflow install Firebase CLI and distribute the build</li>
+                <li>Save Google service account credential json in GitHub Secrets</li>
+                <li>Make the GitHub workflow install Firebase CLI and distribute the build</li>
                 <li>Testing this takes a bit of time because it needs to wait for the build</li>
             </ul>  
             </td>
@@ -385,10 +392,22 @@
         </tr>
         <tr>
             <td>21</td>
+            <td>Bump iOS build version for every release
+            <ul>
+                <li>Use GitHub cache to save iOS build version</li>
+                <li>Make this logic <a href="https://docs.github.com/en/actions/sharing-automations/creating-actions/creating-a-composite-action" target="_blank">a composite action</a> to keep the main workflow clean</li>
+            </ul>
+        </td>
+            <td>iOS build GitHub workflow</td>
+            <td>2</td>
+            <td>Done</td>
+        </tr>
+        <tr>
+            <td>22</td>
             <td>Final end-to-end test</td>
             <td></td>
             <td>2</td>
-            <td>In Progress</td>
+            <td>Done</td>
         </tr>
         <tr>
             <td></td>
@@ -399,7 +418,7 @@
         </tr>
     </tbody>
 </table>
-    <h2>Github Repositories</h2>
+    <h2>GitHub Repositories</h2>
     <ul>
         <li>
             <a href="https://github.com/AungThiha/iOSAppAccessAutomation">https://github.com/AungThiha/iOSAppAccessAutomation</a> (Includes iOS build GitHub workflow)
@@ -411,31 +430,7 @@
             <a href="https://github.com/AungThiha/PhotoAlbumKMP">https://github.com/AungThiha/PhotoAlbumKMP</a>
         </li>
     </ul>
-
-    <h2>Resources</h2>
-    <ul>
-        <li>
-            Firebase allows developers to subscribe to device list changes programmatically, including new device registration. 
-            <a href="https://firebase.google.com/docs/app-distribution/register-additional-devices" target="_blank">https://firebase.google.com/docs/app-distribution/register-additional-devices</a>
-        </li>
-        <li>
-            Apple offers an API that allows developers to programmatically add a new device in their Apple Developer Account. 
-            <a href="https://developer.apple.com/documentation/appstoreconnectapi/post-v1-devices" target="_blank">https://developer.apple.com/documentation/appstoreconnectapi/post-v1-devices</a>
-        </li>
-        <li>
-            Apple offers an API to download provisioning profiles programmatically. 
-            <a href="https://developer.apple.com/documentation/appstoreconnectapi/get-v1-profiles" target="_blank">https://developer.apple.com/documentation/appstoreconnectapi/get-v1-profiles</a>
-        </li>
-        <li>
-            Apple allows building a release iOS build from a command line. 
-            <a href="https://developer.apple.com/library/archive/technotes/tn2339/_index.html#//apple_ref/doc/uid/DTS40014588-CH1-HOW_DO_I_BUILD_MY_PROJECTS_FROM_THE_COMMAND_LINE_" target="_blank">https://developer.apple.com/library/archive/technotes/tn2339/_index.html#//apple_ref/doc/uid/DTS40014588-CH1-HOW_DO_I_BUILD_MY_PROJECTS_FROM_THE_COMMAND_LINE_</a>
-        </li>
-        <li>
-            Firebase offers an API to upload an iOS build from a command line. 
-            <a href="https://firebase.google.com/docs/app-distribution/ios/distribute-cli" target="_blank">https://firebase.google.com/docs/app-distribution/ios/distribute-cli</a>
-        </li>
-    </ul>
-    <h2>Lessons Learned</h2>
+    <h2 id="lesson-learned">Lessons Learned</h2>
     <ul>
         <li>
             The revision happened because during the design task, a third-party API was planned for use without knowing whether such API even exists. Just because APIs for downloading, creating and deleting exist, it cannot be assumed that an API for updating is available as well.
