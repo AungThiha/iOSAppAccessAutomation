@@ -104,9 +104,8 @@ jobs:
           cd ./PhotoAlbumKMP/iosApp/iosApp
 
           /usr/libexec/PlistBuddy -c "Set :CFBundleVersion \
-          ${{ steps.bump.outputs.NEW_IOS_BUILD_NUMBER }}" \
+          ${{ steps.bump_ios_build_number.outputs.NEW_IOS_BUILD_NUMBER }}" \
           Info.plist
-          cat Info.plist
 
       - name: Build archive
         env:
