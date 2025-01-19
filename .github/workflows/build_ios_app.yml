@@ -91,15 +91,15 @@ jobs:
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v3
 
-      - name: Retrieve new iOS build number
-        id: bump_ios_build_number
+      - name: Retrive previous iOS build number from cach and bump it
+        id: ios_build_number
         uses: ./.github/actions/bump-build-number
         with:
           cache-key: "ios-build-number-cache"
 
       - name: Set new iOS build number in Info.plist
         env:
-          NEW_IOS_BUILD_NUMBER: ${{ steps.bump.outputs.NEW_BUILD_NUMBER }}
+          NEW_IOS_BUILD_NUMBER: ${{ steps.ios_build_number.outputs.NEW_BUILD_NUMBER }}
         run: |
           cd ./PhotoAlbumKMP/iosApp/iosApp
 
