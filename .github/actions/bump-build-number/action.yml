@@ -24,7 +24,7 @@ runs:
         if [ -f .build-number ]; then
           PREVIOUS_BUILD_NUMBER=$(cat .build-number)
         else
-          PREVIOUS_BUILD_NUMBER=2
+          PREVIOUS_BUILD_NUMBER=1
         fi
         echo "Previous build number: $PREVIOUS_BUILD_NUMBER"
         echo "PREVIOUS_BUILD_NUMBER=$PREVIOUS_BUILD_NUMBER" >> $GITHUB_ENV
