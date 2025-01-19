@@ -98,9 +98,8 @@ jobs:
           cache-key: "ios-build-number-cache"
 
       - name: Set new iOS build number in Info.plist
-        NEW_IOS_BUILD_NUMBER: ${{ steps.bump.outputs.NEW_BUILD_NUMBER }}
-        with:
-          cache-key: "ios-build-number-cache"
+        env:
+          NEW_IOS_BUILD_NUMBER: ${{ steps.bump.outputs.NEW_BUILD_NUMBER }}
         run: |
           cd ./PhotoAlbumKMP/iosApp/iosApp
 
