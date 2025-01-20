@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How to Request App Access</title>
+    <style>
+        body {
+            margin: 0 20px;
+            padding: 20px 0;
+        }
+        .important-notes {
+            background-color: #fff3cd;
+            border: 1px solid #ffeeba;
+            padding: 10px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            display: inline-block;
+        }
+        .important-notes strong {
+            color: #856404;
+        }
+    </style>
+</head>
+<body>
+    <h1>How to Request App Access</h1>
+
+    <div class="important-notes">
+        <p><strong>Important Notes:</strong></p>
+        <ul>
+            <li>Only Safari is supported. Other browsers cannot be used for this process.</li>
+            <li>Registration requires a Google account email. Non-Google account emails will not work.</li>
+        </ul>
+    </div>
+    <ol>
+        <li>
+           Use <a href="https://appdistribution.firebase.dev/i/4ddbc3dd615d571d" target="_blank">the Firebase invite link</a> to register your Google account email for app access. 
+        </li>
+        <li>
+            Complete the setup process as outlined in
+        <a href="https://firebase.google.com/docs/app-distribution/get-set-up-as-a-tester?platform=ios" target="_blank">the official Firebase setup page</a>. Please, note that the app is released with <strong>Ad Hoc mode</strong>.
+        </li>
+        <li>
+            Wait for a new build that's compiled with your device UDID included. This process is automated. So, it only takes approximately 20 minutes. The project that automated this process is documented <a href="../index.html">here</a>.
+        </li>
+        <li>
+            Once you receive an email update from Firebase, follow <a href="https://developer.apple.com/documentation/xcode/enabling-developer-mode-on-a-device" target="_blank">the Apple official guide</a> to enable Developer Mode.
+        </li>
+        <li>
+            Download and install the app by following the instruction from the email from Firebase.
+        </li>
+    </ol>
+    <p>The source code of the app can be found <a href="https://github.com/AungThiha/PhotoAlbumKMP" target="_blank">here</a>.</p>
+</body>
+</html>

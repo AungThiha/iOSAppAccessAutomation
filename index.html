@@ -55,30 +55,50 @@
     <p>However, the process required manual work from the engineer to register devices and manage access. When there's a timezone difference between the engineer and new users, it could take a day for the engineer to see a new access request.</p>
     <p>
     This project automated the work required on the developer's side to grant access to the app after a user registers their device with Firebase. Users now only need to wait approximately 20 minutes after registering their device with Firebase, after which they will receive an email from Firebase that informs the build is ready to be downloaded and installed.</p>
+    <p>How to request app access is documented <a href="pages/firebase-setup.html">here</a>.</p>
     <h2 id="justification">Justification</h2>
     <p>There’s no question whether automating the process of building and distribution is worth it because doing it manually would cost a substantial amount of time to make small releases that are necessary for identifying issues early.</p>
 <p>Automating the registration of device UDIDs and the management of the email list required by the Firebase CLI may seem unnecessary, but it provides several benefits. It mitigates the risk of human errors like entering the wrong UDID or email address. It also protects engineers from frequent context switching as they would otherwise need to switch to these tasks every time someone new needs access. Lastly, it eliminates the need for coordination between testers and engineers just for app access.</p>
+<h2 id="skills-demonstrated">Skills Demonstrated</h2>
+        <ul>
+        <li>Security Fundamentals</li>
+        <li>Automation Engineering (CI/CD)</li>
+        <li>RESTful API Development</li>
+        <li>Problem Analysis</li>
+        <li>System Design and Architecture</li>
+        <li>Continuous Growth through Reflection</li>
+        </ul>
     <h2>Personal Goal</h2>
     <p>
         Estimating something unknown has always been problematic for me. Sometimes, I estimate 16 hours and it's done in 4 hours. Sometimes, it's the other way around. This makes stakeholders unhappy because it's difficult for them to manage project timelines.
     </p>
     <p>
-        This project was carried out with a focus on figuring out what can be done to address this weakness of mine and applying the findings along the way. All lessons learned so far are highlighted under the section titled "Lesson Learned".
+        This project was carried out with a focus on figuring out what can be done to address this weakness of mine and applying the findings along the way.
     </p>
+    <h2 id="lesson-learned">Lessons Learned</h2>
+    <ul>
+        <li>
+            During the design phase, asking these two questions helps avoid choices that create unnecessary complexity.
+            <ul>
+                <li>Can this be automated?</li>
+                <li>What can be done to make automation easier?</li>
+            </ul>
+        </li>
+        <li>
+            A project revision happened because during the design task, an Apple Connect API was planned for use without knowing whether such API even exists. Just because APIs for downloading, creating and deleting exist, it cannot be assumed that an API for updating is available too.
+        </li>
+        <li>
+            Estimation is easier when a big task is broken down into smaller ones. It makes it a lot easier to estimate and makes the estimations more accurate.
+        </li>
+        <li>
+            Dedicating time specifically for researching what needs to be done helps convert unknowns into knowns and improves the accuracy of estimates. Such research work should always be done before estimating anything in projects that involve unknowns.
+        </li>
+    </ul>
     <h2>Project Timeline</h2>
     <ul>
         <li><strong>Start Date:</strong> 16 Dec 2024</li>
         <li><strong>Completed Date:</strong> 20 Jan 2025</li>
         <li><strong>Working Hours a Week:</strong> 15 hours</li>
-    </ul>
-    <h2 id="skills-demonstrated">Skills Demonstrated</h2>
-    <ul>
-    <li>Security Fundamentals</li>
-    <li>Automation Engineering (CI/CD)</li>
-    <li>RESTful API Development</li>
-    <li>Problem Analysis</li>
-    <li>System Design and Architecture</li>
-    <li>Continuous Growth through Reflection</li>
     </ul>
     <h2>Design</h2>
     <p>The project consists of three main components:</p>
@@ -428,18 +448,6 @@
         </li>
         <li>
             <a href="https://github.com/AungThiha/PhotoAlbumKMP">https://github.com/AungThiha/PhotoAlbumKMP</a>
-        </li>
-    </ul>
-    <h2 id="lesson-learned">Lessons Learned</h2>
-    <ul>
-        <li>
-            The revision happened because during the design task, a third-party API was planned for use without knowing whether such API even exists. Just because APIs for downloading, creating and deleting exist, it cannot be assumed that an API for updating is available as well.
-        </li>
-        <li>
-            Estimation is easier when a big task is broken down into smaller ones. It makes it a lot easier to estimate and makes the estimations more accurate.
-        </li>
-        <li>
-            Dedicating time specifically for researching what needs to be done helps convert unknowns into knowns and improves the accuracy of estimates. Such research work should always be done before estimating anything in projects that involve unknowns.
         </li>
     </ul>
     <h2>Author</h2>
