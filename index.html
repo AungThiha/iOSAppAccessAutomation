@@ -55,7 +55,7 @@
     <p>However, the process required manual work from the engineer to register devices and manage access. When there's a timezone difference between the engineer and new users, it could take a day for the engineer to see a new access request.</p>
     <p>
     This project automated the work required on the developer's side to grant access to the app after a user registers their device with Firebase. Users now only need to wait approximately 20 minutes after registering their device with Firebase, after which they will receive an email from Firebase that informs the build is ready to be downloaded and installed.</p>
-    <p>How to request app access is documented <a href="pages/firebase-setup.html">here</a>.</p>
+    <p>How to request app access is documented <a href="pages/firebase-setup.html" target="_blank">here</a>.</p>
     <h2 id="justification">Justification</h2>
     <p>There’s no question whether automating the process of building and distribution is worth it because doing it manually would cost a substantial amount of time to make small releases that are necessary for identifying issues early.</p>
 <p>Automating the registration of device UDIDs and the management of the email list required by the Firebase CLI may seem unnecessary, but it provides several benefits. It mitigates the risk of human errors like entering the wrong UDID or email address. It also protects engineers from frequent context switching as they would otherwise need to switch to these tasks every time someone new needs access. Lastly, it eliminates the need for coordination between testers and engineers just for app access.</p>
@@ -127,7 +127,7 @@
     Dependency Chain Abuse is listed in <a href="https://owasp.org/www-project-top-10-ci-cd-security-risks/" target="_blank">the OWASP Top 10 CI/CD Security Risks</a>. Therefore, any third-party GitHub action that requires sensitive credentials, such as API keys or access tokens, as arguments is not used in this project.
 </p>
 <h3 id="iosappaccessautomation">iOSAppAccessAutomation</h3>
-<p>This server is deployed on Heroku. To enable HTTPS, Heroku uses Server Name Indication (SNI), an extension of the widely supported TLS protocol (<a href="https://devcenter.heroku.com/articles/ssl">Heroku, 2024</a>). This ensures encrypted communication over the network to prevent eavesdropping and man-in-the-middle attacks.</p>
+<p>This server is deployed on Heroku. To enable HTTPS, Heroku uses Server Name Indication (SNI), an extension of the widely supported TLS protocol (<a href="https://devcenter.heroku.com/articles/ssl" target="_blank">Heroku, 2024</a>). This ensures encrypted communication over the network to prevent eavesdropping and man-in-the-middle attacks.</p>
 <h3 id="communications-between-iosappinvitealert-and-iosappaccessautomation">Communications Between iOSAppInviteAlert and iOSAppAccessAutomation</h3>
 <p>To ensure only iOSAppInviteAlert can save device information into iOSAppAccessAutomation, an asymmetric encryption called RSA is used.</p>
 <p>iOSAppInviteAlert has a private key to generate JWTs. This private key is stored in Firebase Cloud Secret Manager as iOSAppInviteAlert is a Firebase Cloud Function.</p>
@@ -441,13 +441,13 @@
     <h2>GitHub Repositories</h2>
     <ul>
         <li>
-            <a href="https://github.com/AungThiha/iOSAppAccessAutomation">https://github.com/AungThiha/iOSAppAccessAutomation</a> (Includes iOS build GitHub workflow)
+            <a href="https://github.com/AungThiha/iOSAppAccessAutomation" target="_blank">https://github.com/AungThiha/iOSAppAccessAutomation</a> (Includes iOS build GitHub workflow)
         </li>
         <li>
-            <a href="https://github.com/AungThiha/iOSAppInviteAlert">https://github.com/AungThiha/iOSAppInviteAlert</a>
+            <a href="https://github.com/AungThiha/iOSAppInviteAlert" target="_blank">https://github.com/AungThiha/iOSAppInviteAlert</a>
         </li>
         <li>
-            <a href="https://github.com/AungThiha/PhotoAlbumKMP">https://github.com/AungThiha/PhotoAlbumKMP</a>
+            <a href="https://github.com/AungThiha/PhotoAlbumKMP" target="_blank">https://github.com/AungThiha/PhotoAlbumKMP</a>
         </li>
     </ul>
     <h2>Author</h2>
