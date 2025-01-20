@@ -49,17 +49,8 @@
 </head>
 <body>
     <h1>iOS App Access Automation</h1>
-
-    <h2 id="background">Background</h2>
-    <p>Apple restricts devices from installing and using apps from outside its official app market, App Store, without establishing a form of trust between the device and the app’s developer through the Apple Developer Program. Firebase simplifies this process by providing tools for app distribution.</p>
-    <p>However, the process required manual work from the engineer to register devices and manage access. When there's a timezone difference between the engineer and new users, it could take a day for the engineer to see a new access request.</p>
-    <p>
-    This project automated the work required on the developer's side to grant access to the app after a user registers their device with Firebase. Users now only need to wait approximately 20 minutes after registering their device with Firebase, after which they will receive an email from Firebase that informs the build is ready to be downloaded and installed.</p>
-    <p>How to request app access is documented <a href="pages/firebase-setup.html" target="_blank">here</a>.</p>
-    <h2 id="justification">Justification</h2>
-    <p>There’s no question whether automating the process of building and distribution is worth it because doing it manually would cost a substantial amount of time to make small releases that are necessary for identifying issues early.</p>
-<p>Automating the registration of device UDIDs and the management of the email list required by the Firebase CLI may seem unnecessary, but it provides several benefits. It mitigates the risk of human errors like entering the wrong UDID or email address. It also protects engineers from frequent context switching as they would otherwise need to switch to these tasks every time someone new needs access. Lastly, it eliminates the need for coordination between testers and engineers just for app access.</p>
-<h2 id="skills-demonstrated">Skills Demonstrated</h2>
+    <p>The project automates the iOS app distribution process and effectively reduces app access time from 24 hours to 20 minutes.</p>
+    <h2 id="skills-demonstrated">Skills Demonstrated</h2>
         <ul>
         <li>Security Fundamentals</li>
         <li>Automation Engineering (CI/CD)</li>
@@ -68,38 +59,23 @@
         <li>System Design and Architecture</li>
         <li>Continuous Growth through Reflection</li>
         </ul>
-    <h2>Personal Goal</h2>
+    <h2 id="technologies-used">Technologies Used</h2>
+        <ul>
+        <li>Backend: Node.js, PostgreSQL, Sequelize ORM</li>
+        <li>Cloud/DevOps: Firebase Cloud Functions, GitHub Actions, Heroku</li>
+        <li>Security: JWT, RSA encryption</li>
+        <li>APIs: Apple Connect API, Firebase App Distribution API, GitHub API</li>
+        <li>Tools: Xcode build tools, Firebase CLI</li>
+        </ul>
+    <h2 id="background">Background</h2>
+    <p>Apple restricts devices from installing and using apps from outside its official app market, App Store, without establishing a form of trust between the device and the app’s developer through the Apple Developer Program. Firebase simplifies this process by providing tools for app distribution.</p>
+    <p>However, the process required manual work from the engineer to register devices and manage access. When there's a timezone difference between the engineer and new users, it could take a day for the engineer to see a new access request.</p>
     <p>
-        Estimating something unknown has always been problematic for me. Sometimes, I estimate 16 hours and it's done in 4 hours. Sometimes, it's the other way around. This makes stakeholders unhappy because it's difficult for them to manage project timelines.
-    </p>
-    <p>
-        This project was carried out with a focus on figuring out what can be done to address this weakness of mine and applying the findings along the way.
-    </p>
-    <h2 id="lesson-learned">Lessons Learned</h2>
-    <ul>
-        <li>
-            During the design phase, asking these two questions helps avoid choices that create unnecessary complexity.
-            <ul>
-                <li>Can this be automated?</li>
-                <li>What can be done to make automation easier?</li>
-            </ul>
-        </li>
-        <li>
-            A project revision happened because during the design task, an Apple Connect API was planned for use without knowing whether such API even exists. Just because APIs for downloading, creating and deleting exist, it cannot be assumed that an API for updating is available too.
-        </li>
-        <li>
-            Estimation is easier when a big task is broken down into smaller ones. It makes it a lot easier to estimate and makes the estimations more accurate.
-        </li>
-        <li>
-            Dedicating time specifically for researching what needs to be done helps convert unknowns into knowns and improves the accuracy of estimates. Such research work should always be done before estimating anything in projects that involve unknowns.
-        </li>
-    </ul>
-    <h2>Project Timeline</h2>
-    <ul>
-        <li><strong>Start Date:</strong> 16 Dec 2024</li>
-        <li><strong>Completed Date:</strong> 20 Jan 2025</li>
-        <li><strong>Working Hours a Week:</strong> 15 hours</li>
-    </ul>
+    This project automates the work required on the developer's side to grant access to the app after a user registers their device with Firebase. Users now only need to wait approximately 20 minutes after registering their device with Firebase, after which they will receive an email from Firebase that informs the build is ready to be downloaded and installed.</p>
+    <p>How to request app access is documented <a href="pages/firebase-setup.html" target="_blank">here</a>.</p>
+    <h2 id="justification">Justification</h2>
+    <p>There’s no question whether automating the process of building and distribution is worth it because doing it manually would cost a substantial amount of time to make small releases that are necessary for identifying issues early.</p>
+<p>Automating the registration of device UDIDs and the management of the email list required by the Firebase CLI may seem unnecessary, but it provides several benefits. It mitigates the risk of human errors like entering the wrong UDID or email address. It also protects engineers from frequent context switching as they would otherwise need to switch to these tasks every time someone new needs access. Lastly, it eliminates the need for coordination between testers and engineers just for app access.</p>
     <h2>Design</h2>
     <p>The project consists of three main components:</p>
 <ul>
@@ -145,13 +121,12 @@
     <p>This is not a problem because the latest build will have already been built with a provisioning profile that's configured with the device's UDID since it's already registered.</p>
     <p>However, the new email will replace the existing email in the <strong>device</strong> table in iOSAppAccessAutomation so that the new email can receive notifications for new builds. It's designed this way because the history of device ownership is not important in this project.</p>
     <p>As for the old email in <strong>user</strong> table, since it won't be cleared, it will continue to receive updates for new builds. This means the user can use either email to access the latest build.</p>
-    <h2>Project Revision</h2>
-    <p>Initially, it was designed to update the provisioning profile from the Firebase Cloud Function but later, it was found that Apple Connect API does not support updating provisioning profile. It only provides APIs for creating and deleting.</p> 
-    <p>Because of it, it's decided to create a new provisioning profile for every build using GitHub Workflow instead.</p>
-    <p>Creating a provisioning profile returns the created provisioning profile as part of the response. Therefore, the task number 3 in the Task Breakdown was discarded.</p>
-    <p>The task number 7 is also canceled but because the time spent on this task revealed the missing information that led to this revision, it's still marked as 1 hour spent on this task.</p>
-    <p>This revision increased the project timeline by 13 hours.</p>
-    <p>The discarded initial design can be found <a href="images/diagram.jpg" target="_blank">here</a>.</p>
+    <h2>Project Timeline</h2>
+    <ul>
+        <li><strong>Start Date:</strong> 16 Dec 2024</li>
+        <li><strong>Completed Date:</strong> 20 Jan 2025</li>
+        <li><strong>Working Hours a Week:</strong> 15 hours</li>
+    </ul>
     <h2>Task Breakdown</h2>
     <table>
     <thead>
@@ -438,6 +413,39 @@
         </tr>
     </tbody>
 </table>
+<h2>Project Revision</h2>
+    <p>Initially, it was designed to update the provisioning profile from the Firebase Cloud Function but later, it was found that Apple Connect API does not support updating provisioning profile. It only provides APIs for creating and deleting.</p> 
+    <p>Because of it, it's decided to create a new provisioning profile for every build using GitHub Workflow instead.</p>
+    <p>Creating a provisioning profile returns the created provisioning profile as part of the response. Therefore, the task number 3 in the Task Breakdown was discarded.</p>
+    <p>The task number 7 is also canceled but because the time spent on this task revealed the missing information that led to this revision, it's still marked as 1 hour spent on this task.</p>
+    <p>This revision increased the project timeline by 13 hours.</p>
+    <p>The discarded initial design can be found <a href="images/diagram.jpg" target="_blank">here</a>.</p>
+<h2>Personal Goal</h2>
+    <p>
+        Estimating something unknown has always been problematic for me. Sometimes, I estimate 16 hours and it's done in 4 hours. Sometimes, it's the other way around. This makes stakeholders unhappy because it's difficult for them to manage project timelines.
+    </p>
+    <p>
+        This project was carried out with a focus on figuring out what can be done to address this weakness of mine and applying the findings along the way.
+    </p>
+    <h2 id="lesson-learned">Lessons Learned</h2>
+    <ul>
+        <li>
+            During the design phase, asking these two questions helps avoid choices that create unnecessary complexity.
+            <ul>
+                <li>Can this be automated?</li>
+                <li>What can be done to make automation easier?</li>
+            </ul>
+        </li>
+        <li>
+            A project revision happened because during the design task, an Apple Connect API was planned for use without knowing whether such API even exists. Just because APIs for downloading, creating and deleting exist, it cannot be assumed that an API for updating is available too.
+        </li>
+        <li>
+            Estimation is easier when a big task is broken down into smaller ones. It makes it a lot easier to estimate and makes the estimations more accurate.
+        </li>
+        <li>
+            Dedicating time specifically for researching what needs to be done helps convert unknowns into knowns and improves the accuracy of estimates. Such research work should always be done before estimating anything in projects that involve unknowns.
+        </li>
+    </ul>
     <h2>GitHub Repositories</h2>
     <ul>
         <li>
