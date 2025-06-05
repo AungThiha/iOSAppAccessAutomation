@@ -76,11 +76,11 @@ jobs:
           echo "Profile Name: $PROFILE_NAME"
           echo "PROFILE_NAME=$PROFILE_NAME" >> $GITHUB_OUTPUT
 
-      - name: Checkout PhotoAlbumKMP repo to a directory
+      - name: Checkout KMPTemplate repo to a directory
         uses: actions/checkout@v3
         with:
-          repository: AungThiha/PhotoAlbumKMP
-          path: ./PhotoAlbumKMP  # This will clone it into the "PhotoAlbumKMP" directory
+          repository: AungThiha/KMPTemplate
+          path: ./KMPTemplate  # This will clone it into the "KMPTemplate" directory
 
       - name: Setup Java
         uses: actions/setup-java@v4
@@ -99,7 +99,7 @@ jobs:
 
       - name: Set new iOS build number in Info.plist
         run: |
-          cd ./PhotoAlbumKMP/iosApp/iosApp
+          cd ./KMPTemplate/iosApp/iosApp
 
           # NEW_BUILD_NUMBER comes from the composite action in ./.github/actions/bump-build-number 
           echo "new iOS build number: $NEW_BUILD_NUMBER"
@@ -113,7 +113,7 @@ jobs:
           OVERRIDE_KOTLIN_BUILD_IDE_SUPPORTED: 'NO'
           PROFILE_NAME: ${{ steps.create_provisioning_profile.outputs.PROFILE_NAME }}
         run: |
-          cd ./PhotoAlbumKMP/iosApp
+          cd ./KMPTemplate/iosApp
 
           xcodebuild -project ./iosApp.xcodeproj \
           -scheme iosApp -configuration "Release" \
@@ -129,7 +129,7 @@ jobs:
           PROFILE_NAME: ${{ steps.create_provisioning_profile.outputs.PROFILE_NAME }}
         run: |
 
-          cd ./PhotoAlbumKMP/iosApp
+          cd ./KMPTemplate/iosApp
 
           EXPORT_OPTS_PATH=ExportOptions.plist
 
@@ -178,7 +178,7 @@ jobs:
           IOS_FIREBASE_PROJECT_ID=$(echo -n "$IOS_FIREBASE_PROJECT_ID_BASE64" | base64 --decode)
           
           # https://firebase.google.com/docs/app-distribution/ios/distribute-cli
-          firebase appdistribution:distribute ./PhotoAlbumKMP/iosApp/build/ipa/PhotoAlbum.ipa \
+          firebase appdistribution:distribute ./KMPTemplate/iosApp/build/ipa/PhotoAlbum.ipa \
           --app $IOS_FIREBASE_PROJECT_ID \
           --testers-file testers.txt \
           --release-notes "Sometimes, Firebase does not send emails to the testers if the build number is not increased. The change in this version only involves increasing the build version and building with a new provisioning profile to allow new devices to access the app. Nothing else is changed."
