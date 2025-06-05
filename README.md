@@ -7,3 +7,14 @@ An automated iOS app distribution system built with Node.js, Firebase Cloud Func
 * [App access setup instructions](https://aungthiha.github.io/iOSAppAccessAutomation/pages/firebase-setup.html)
 * [KMP source code](https://github.com/AungThiha/KMPTemplate)
 * [Firebase Cloud Functions](https://github.com/AungThiha/iOSAppInviteAlert)
+
+---
+
+## Contributing
+PRs and feedback welcome!
+
+---
+
+## License
+MIT
+
