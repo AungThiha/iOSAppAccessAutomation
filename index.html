@@ -72,7 +72,8 @@
     <p>However, the process required manual work from the engineer to register devices and manage access. When there's a timezone difference between the engineer and new users, it could take a day for the engineer to see a new access request.</p>
     <p>
     This project automates the work required on the developer's side to grant access to the app after a user registers their device with Firebase. Users now only need to wait approximately 7 minutes after registering their device with Firebase, after which they will receive an email from Firebase that informs the build is ready to be downloaded and installed.</p>
-    <p>How to request app access is documented <a href="pages/firebase-setup.html" target="_blank">here</a>.</p>
+    <h3>Request Access</h3>
+    <p>Follow the step-by-step guide <a href="pages/firebase-setup.html" target="_blank">here</a> to request access and register your device.
     <h2 id="justification">Justification</h2>
     <p>There’s no question whether automating the process of building and distribution is worth it because doing it manually would cost a substantial amount of time to make small releases that are necessary for identifying issues early.</p>
 <p>Automating the registration of device UDIDs and the management of the email list required by the Firebase CLI may seem unnecessary, but it provides several benefits. It mitigates the risk of human errors like entering the wrong UDID or email address. It also protects engineers from frequent context switching as they would otherwise need to switch to these tasks every time someone new needs access. Lastly, it eliminates the need for coordination between testers and engineers just for app access.</p>
