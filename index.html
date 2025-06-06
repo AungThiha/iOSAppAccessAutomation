@@ -6,18 +6,22 @@
     <title>iOS App Access Automation</title>
     <style>
         body {
-            margin: 0 20px;
-            padding: 20px 0;
+            margin: 0 auto;
+            padding: 20px;
+            max-width: 900px; /* Limit line width for readability */
+            line-height: 1.6;
+            font-family: Arial, sans-serif;
+            box-sizing: border-box;
         }
         table {
             width: 100%;
             border-collapse: collapse;
             margin-top: 20px;
-        }
-        table, th, td {
-            border: 1px solid black;
+            overflow-x: auto;
+            display: block;
         }
         th, td {
+            border: 1px solid black;
             padding: 8px;
             text-align: left;
         }
@@ -27,6 +31,20 @@
         ul {
             margin: 0;
             padding-left: 20px;
+        }
+        .two-columns {
+            display: flex;
+            gap: 40px;
+            flex-wrap: wrap;
+        }
+        .left-column {
+            flex: 4;
+            min-width: 250px;
+        }
+
+        .right-column {
+            flex: 6;
+            min-width: 350px;
         }
         .image-container {
             text-align: center;
@@ -50,23 +68,31 @@
 <body>
     <h1>iOS App Access Automation</h1>
     <p>The project automates the iOS app distribution. It automatically processes access requests and cuts wait times caused by time zone differences from 24 hours to under 20 minutes.</p>
-    <h2 id="skills-demonstrated">Skills Demonstrated</h2>
+    
+    <div class="two-columns">
+    <div class="left-column">
+        <h2 id="skills-demonstrated">Skills Demonstrated</h2>
         <ul>
-        <li>Security Fundamentals</li>
-        <li>Automation Engineering (CI/CD)</li>
-        <li>RESTful API Development</li>
-        <li>Problem Analysis</li>
-        <li>System Design and Architecture</li>
-        <li>Continuous Growth through Reflection</li>
+            <li>Security Fundamentals</li>
+            <li>Automation Engineering (CI/CD)</li>
+            <li>RESTful API Development</li>
+            <li>Problem Analysis</li>
+            <li>System Design and Architecture</li>
+            <li>Continuous Growth through Reflection</li>
         </ul>
-    <h2 id="technologies-used">Technologies Used</h2>
+    </div>
+    <div class="right-column">
+        <h2 id="technologies-used">Technologies Used</h2>
         <ul>
-        <li>Backend: Node.js, PostgreSQL, Sequelize ORM</li>
-        <li>Cloud/DevOps: Firebase Cloud Functions, GitHub Actions, Heroku</li>
-        <li>Security: JWT, RSA encryption</li>
-        <li>APIs: Apple Connect API, Firebase App Distribution API, GitHub API</li>
-        <li>Tools: Xcode build tools, Firebase CLI</li>
+            <li>Backend: Node.js, PostgreSQL, Sequelize ORM</li>
+            <li>Cloud/DevOps: Firebase Cloud Functions, GitHub Actions, Heroku</li>
+            <li>Security: JWT, RSA encryption</li>
+            <li>APIs: Apple Connect API, Firebase App Distribution API, GitHub API</li>
+            <li>Tools: Xcode build tools, Firebase CLI</li>
         </ul>
+    </div>
+    </div>
+
     <h2 id="background">Background</h2>
     <p>Apple restricts devices from installing and using apps from outside its official app market, App Store, without establishing a form of trust between the device and the app’s developer through the Apple Developer Program. Firebase simplifies this process by providing tools for app distribution.</p>
     <p>However, the process required manual work from the engineer to register devices and manage access. When there's a timezone difference between the engineer and new users, it could take a day for the engineer to see a new access request.</p>
