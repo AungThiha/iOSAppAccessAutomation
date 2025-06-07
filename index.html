@@ -63,10 +63,82 @@
             height: auto;
             display: inline-block;
         }
+        #toc ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        #toc li {
+            margin: 5px 0;
+        }
+        #toc a {
+            text-decoration: none;
+            color: black;
+        }
+        #toc .toc-parent {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            cursor: pointer;
+            user-select: none;
+        }
+        #toc .caret {
+            font-size: 0.8em;
+            transition: transform 0.2s ease;
+        }
+        #toc .active .caret {
+            transform: rotate(90deg);
+        }
+        #toc .nested {
+            display: none;
+            margin-left: 20px;
+        }
+        #toc .active > .nested {
+            display: block;
+        }
     </style>
+    <script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const toc = document.getElementById("toc");
+        const headers = document.querySelectorAll("h2, h3");
+        let tocData = [];
+
+        headers.forEach(h => {
+            if (!h.id) h.id = h.textContent.toLowerCase().replace(/\s+/g, "-");
+            if (h.tagName === "H2") {
+                tocData.push({ text: h.textContent, id: h.id, children: [] });
+            } else if (h.tagName === "H3" && tocData.length > 0) {
+                tocData[tocData.length - 1].children.push({ text: h.textContent, id: h.id });
+            }
+        });
+
+        let html = "<h2>Table of Contents</h2><ul>";
+        tocData.forEach((section, index) => {
+            const hasChildren = section.children.length > 0;
+            html += `<li>
+                <div class="toc-parent" ${hasChildren ? 'onclick="toggleSection(this)"' : ""}>
+                    ${hasChildren ? `<span class="caret">▶</span>` : ""}
+                    <a href="#${section.id}">${section.text}</a>
+                </div>
+                ${hasChildren ? `<ul class="nested">
+                    ${section.children.map(sub => `<li><a href="#${sub.id}">${sub.text}</a></li>`).join("")}
+                </ul>` : ""}
+            </li>`;
+        });
+        html += "</ul>";
+        toc.innerHTML = html;
+    });
+
+    function toggleSection(element) {
+        const li = element.parentElement;
+        li.classList.toggle("active");
+    }
+    </script>
+
 </head>
 <body>
     <h1>iOS App Access Automation</h1>
+    <nav id="toc"></nav>
+    <h2 id="introduction">Introduction</h2>
     <p>The project automates the iOS app distribution. It automatically processes access requests and cuts wait times caused by time zone differences from 24 hours to under 20 minutes.</p>
     
     <div class="two-columns">
@@ -103,7 +175,7 @@
     <h2 id="justification">Justification</h2>
     <p>There’s no question whether automating the process of building and distribution is worth it because doing it manually would cost a substantial amount of time to make small releases that are necessary for identifying issues early.</p>
 <p>Automating the registration of device UDIDs and the management of the email list required by the Firebase CLI may seem unnecessary, but it provides several benefits. It mitigates the risk of human errors like entering the wrong UDID or email address. It also protects engineers from frequent context switching as they would otherwise need to switch to these tasks every time someone new needs access. Lastly, it eliminates the need for coordination between testers and engineers just for app access.</p>
-    <h2>Design</h2>
+    <h2>System Design</h2>
     <p>The project consists of three main components:</p>
 <ul>
     <li><strong>iOSAppInviteAlert</strong> - uses Firebase Cloud Function to receive alerts when someone registers their device to Firebase.</li>
@@ -124,7 +196,7 @@
         <img src="images/er_diagram.jpg" class="er_diagram" alt="ER Diagram">
     </div>
     <p>This is used in iOSAppAccessAutomation.</p>
-    <h2 id="security">Security</h2>
+    <h2 id="security">Security Design</h2>
 <h3>Using Third-party GitHub Actions Sparingly</h3>
 <p>
     Dependency Chain Abuse is listed in <a href="https://owasp.org/www-project-top-10-ci-cd-security-risks/" target="_blank">the OWASP Top 10 CI/CD Security Risks</a>. Therefore, any third-party GitHub action that requires sensitive credentials, such as API keys or access tokens, as arguments is not used in this project.
