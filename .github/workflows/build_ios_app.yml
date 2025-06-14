@@ -125,7 +125,6 @@ jobs:
         env:
           OVERRIDE_KOTLIN_BUILD_IDE_SUPPORTED: 'NO'
           PROFILE_NAME: ${{ steps.create_provisioning_profile.outputs.PROFILE_NAME }}
-          GRADLE_OPTS: -Xmx4g -Dkotlin.daemon.jvm.options="-Xmx2g"
         run: |
           cd ./KMPTemplate/iosApp
 
