@@ -125,7 +125,7 @@ jobs:
         env:
           OVERRIDE_KOTLIN_BUILD_IDE_SUPPORTED: 'NO'
           PROFILE_NAME: ${{ steps.create_provisioning_profile.outputs.PROFILE_NAME }}
-          ORG_GRADLE_PROJECT_org.gradle.workers.max: 3
+          ORG_GRADLE_PROJECT_org.gradle.workers.max: 2
         run: |
           cd ./KMPTemplate/iosApp
 
