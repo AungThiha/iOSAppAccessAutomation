@@ -108,12 +108,13 @@ jobs:
           -c "Set :CFBundleVersion $NEW_BUILD_NUMBER" \
           Info.plist
 
-      - name: Print `GoogleService-Info.plist` to disk
+      - name: Write `GoogleService-Info.plist` to disk
         env:
           PHOTO_ALBUM_IOS_APP_GOOGLE_SERVICES_JSON_BASE64: ${{ secrets.PHOTO_ALBUM_IOS_APP_GOOGLE_SERVICES_PLIST_BASE64 }}
           GOOGLE_SERVICES_PLIST_PATH: iosApp/iosApp/GoogleService-Info.plist
         run: |
-          echo "$GOOGLE_SERVICES_PLIST_BASE64" | base64 --decode > "$GOOGLE_SERVICES_PLIST_PATH"
+          GOOGLE_SERVICES_PLIST_CONTENT=$(echo -n "$GOOGLE_SERVICES_PLIST_BASE64" | base64 --decode)
+          echo "$GOOGLE_SERVICES_PLIST_CONTENT" > $GOOGLE_SERVICES_PLIST_PATH
 
       - name: Build archive
         env:
