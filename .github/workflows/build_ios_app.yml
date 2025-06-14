@@ -111,9 +111,14 @@ jobs:
       - name: Write `GoogleService-Info.plist` to disk
         env:
           PHOTO_ALBUM_IOS_APP_GOOGLE_SERVICES_JSON_BASE64: ${{ secrets.PHOTO_ALBUM_IOS_APP_GOOGLE_SERVICES_PLIST_BASE64 }}
-          GOOGLE_SERVICES_PLIST_PATH: iosApp/iosApp/GoogleService-Info.plist
         run: |
+
+          cd ./KMPTemplate/iosApp/iosApp
+
           GOOGLE_SERVICES_PLIST_CONTENT=$(echo -n "$GOOGLE_SERVICES_PLIST_BASE64" | base64 --decode)
+
+          GOOGLE_SERVICES_PLIST_PATH=GoogleService-Info.plist
+          
           echo "$GOOGLE_SERVICES_PLIST_CONTENT" > $GOOGLE_SERVICES_PLIST_PATH
 
       - name: Build archive
