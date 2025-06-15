@@ -92,7 +92,8 @@ jobs:
           # Remove the existing org.gradle.jvmargs line
           sed -i.bak '/^org\.gradle\.jvmargs=/d' gradle.properties
 
-          echo "org.gradle.jvmargs=-Xmx3G -Dkotlin.daemon.jvm.options=-Xmx3G" >> gradle.properties
+          echo 'org.gradle.jvmargs=-Xmx3072M -Dfile.encoding=UTF-8 -Dkotlin.daemon.jvm.options\="-Xmx3072M"' >> gradle.properties
+
           echo "org.gradle.workers.max=2" >> gradle.properties
 
       - name: Setup Java
