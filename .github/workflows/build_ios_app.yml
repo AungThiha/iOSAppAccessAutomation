@@ -131,7 +131,7 @@ jobs:
           # Remove the existing org.gradle.jvmargs line
           sed -i.bak '/^org\.gradle\.jvmargs=/d' gradle.properties
 
-          echo "org.gradle.jvmargs=-Xmx3g -Dkotlin.daemon.jvm.options=-Xmx3g" >> gradle.properties
+          echo "org.gradle.jvmargs=-Xmx2.5g -Dkotlin.daemon.jvm.options=-Xmx2.5g" >> gradle.properties
           echo "org.gradle.workers.max=2" >> gradle.properties
 
       - name: Build archive
