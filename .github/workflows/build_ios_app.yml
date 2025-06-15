@@ -121,6 +121,19 @@ jobs:
 
           echo "$GOOGLE_SERVICES_PLIST_CONTENT" > $GOOGLE_SERVICES_PLIST_PATH
 
+      # because macos-latest runner only has 7GB RAM
+      # so, we adjust the gradle and worker to only have 6GB in totaly
+      - name: Config Gradle heap size
+        run: |
+
+          cd ./KMPTemplate
+
+          # Remove the existing org.gradle.jvmargs line
+          sed -i.bak '/^org\.gradle\.jvmargs=/d' ./KMPTemplate/gradle.properties
+
+          echo "org.gradle.jvmargs=-Xmx3g -Dkotlin.daemon.jvm.options=-Xmx3g" >> ./KMPTemplate/gradle.properties
+          echo "org.gradle.workers.max=2" >> gradle.properties
+
       - name: Build archive
         env:
           OVERRIDE_KOTLIN_BUILD_IDE_SUPPORTED: 'NO'
