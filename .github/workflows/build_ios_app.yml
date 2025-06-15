@@ -121,15 +121,6 @@ jobs:
 
           echo "$GOOGLE_SERVICES_PLIST_CONTENT" > $GOOGLE_SERVICES_PLIST_PATH
 
-      # because macos-latest runner only has 7GB RAM
-      # so, we adjust the gradle and worker to only have 6GB in totaly
-      - name: Limit number of gradle workers to 2
-        run: |
-
-          cd ./KMPTemplate
-
-          echo "org.gradle.workers.max=2" >> gradle.properties
-
       - name: Build archive
         env:
           OVERRIDE_KOTLIN_BUILD_IDE_SUPPORTED: 'NO'
