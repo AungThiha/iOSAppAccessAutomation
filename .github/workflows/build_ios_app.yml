@@ -82,15 +82,6 @@ jobs:
           repository: AungThiha/KMPTemplate
           path: ./KMPTemplate  # This will clone it into the "KMPTemplate" directory
 
-      # because macos-latest runner only has 7GB RAM
-      # so, we adjust the gradle and worker to only have 4GB in total, leaving room for other stuffs
-      - name: Config Gradle heap size
-        run: |
-
-          cd ./KMPTemplate
-
-          echo "\norg.gradle.workers.max=2" >> gradle.properties
-
       - name: Setup Java
         uses: actions/setup-java@v4
         with:
