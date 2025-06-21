@@ -41,6 +41,9 @@ jobs:
 
       - name: checkout repository
         uses: actions/checkout@v3
+        with:
+          ref: remove-firebase
+          fetch-depth: 1
 
       - name: Set up Python
         uses: actions/setup-python@v2
@@ -128,13 +131,18 @@ jobs:
         run: |
           cd ./KMPTemplate/iosApp
 
+          # add back firebase-enabled version
+          mv iosApp.xcodeproj/project.xcworkspace/xcshareddata/swiftpm/Package.resolved.backup \
+          iosApp.xcodeproj/project.xcworkspace/xcshareddata/swiftpm/Package.resolved
+
           xcodebuild -project ./iosApp.xcodeproj \
           -scheme iosApp -configuration "Release" \
           -allowProvisioningUpdates \
           -destination generic/platform=iOS \
           -archivePath ./build/iosApp.xcarchive \
           archive \
-          PROVISIONING_PROFILE_SPECIFIER="$PROFILE_NAME"
+          PROVISIONING_PROFILE_SPECIFIER="$PROFILE_NAME" \
+          OTHER_SWIFT_FLAGS="-DUSE_FIREBASE"
 
       - name: Export ipa
         env:
