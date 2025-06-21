@@ -123,16 +123,23 @@ jobs:
 
           echo "$GOOGLE_SERVICES_PLIST_CONTENT" > $GOOGLE_SERVICES_PLIST_PATH
 
+      - name: Resolve Firebase dependency
+        run: |
+
+          cd ./KMPTemplate/iosApp
+
+          # add back firebase-enabled version
+          mv iosApp.xcodeproj/project.xcworkspace/xcshareddata/swiftpm/Package.resolved.backup \
+          iosApp.xcodeproj/project.xcworkspace/xcshareddata/swiftpm/Package.resolved
+
+          xcodebuild -resolvePackageDependencies -project ./iosApp.xcodeproj
+
       - name: Build archive
         env:
           OVERRIDE_KOTLIN_BUILD_IDE_SUPPORTED: 'NO'
           PROFILE_NAME: ${{ steps.create_provisioning_profile.outputs.PROFILE_NAME }}
         run: |
           cd ./KMPTemplate/iosApp
-
-          # add back firebase-enabled version
-          mv iosApp.xcodeproj/project.xcworkspace/xcshareddata/swiftpm/Package.resolved.backup \
-          iosApp.xcodeproj/project.xcworkspace/xcshareddata/swiftpm/Package.resolved
 
           xcodebuild -project ./iosApp.xcodeproj \
           -scheme iosApp -configuration "Release" \
