@@ -142,7 +142,7 @@ jobs:
         run: |
           cd ./KMPTemplate/iosApp
 
-          xcodebuild -project ./iosApp.xcworkspace \
+          xcodebuild -project ./iosApp.xcodeproj \
           -scheme iosApp -configuration "Release" \
           -allowProvisioningUpdates \
           -destination generic/platform=iOS \
