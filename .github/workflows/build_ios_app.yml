@@ -12,26 +12,6 @@ jobs:
       - name: check Xcode version
         run: /usr/bin/xcodebuild -version
 
-      - name: Set up Ruby
-        uses: ruby/setup-ruby@v1
-        with:
-          ruby-version: '3.2'
-
-      - name: Checkout KMPTemplate repo to a directory
-        uses: actions/checkout@v3
-        with:
-          repository: AungThiha/KMPTemplate
-          ref: remove-firebase
-          fetch-depth: 1
-          path: ./KMPTemplate  # This will clone it into the "KMPTemplate" directory
-
-      - name: Install CocoaPods
-        run: |
-          cd ./KMPTemplate/iosApp
-          mv Podfile.ci Podfile
-          gem install cocoapods
-          pod install
-
       - name: Install the Apple distribution certificate
         env:
           APPLE_DISTRIBUTION_CERTIFICATE_BASE64: ${{ secrets.APPLE_DISTRIBUTION_CERTIFICATE_BASE64 }}
@@ -111,6 +91,26 @@ jobs:
         with:
           cache-key: "ios-build-number-cache"
 
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.2'
+
+      - name: Checkout KMPTemplate repo to a directory
+        uses: actions/checkout@v3
+        with:
+          repository: AungThiha/KMPTemplate
+          ref: remove-firebase
+          fetch-depth: 1
+          path: ./KMPTemplate  # This will clone it into the "KMPTemplate" directory
+
+      - name: Install CocoaPods
+        run: |
+          cd ./KMPTemplate/iosApp
+          mv Podfile.ci Podfile
+          gem install cocoapods
+          pod install
+
       - name: Set new iOS build number in Info.plist
         run: |
           cd ./KMPTemplate/iosApp/iosApp
@@ -142,7 +142,7 @@ jobs:
         run: |
           cd ./KMPTemplate/iosApp
 
-          xcodebuild -project ./iosApp.xcodeproj \
+          xcodebuild -project ./iosApp.xcworkspace \
           -scheme iosApp -configuration "Release" \
           -allowProvisioningUpdates \
           -destination generic/platform=iOS \
