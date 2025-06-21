@@ -17,6 +17,14 @@ jobs:
         with:
           ruby-version: '3.2'
 
+      - name: Checkout KMPTemplate repo to a directory
+        uses: actions/checkout@v3
+        with:
+          repository: AungThiha/KMPTemplate
+          ref: remove-firebase
+          fetch-depth: 1
+          path: ./KMPTemplate  # This will clone it into the "KMPTemplate" directory
+
       - name: Install CocoaPods
         run: |
           cd ./KMPTemplate/iosApp
@@ -87,14 +95,6 @@ jobs:
           PROFILE_NAME=$(security cms -D -i ./provisioning_profile.mobileprovision | plutil -extract Name raw -o - -)
           echo "Profile Name: $PROFILE_NAME"
           echo "PROFILE_NAME=$PROFILE_NAME" >> $GITHUB_OUTPUT
-
-      - name: Checkout KMPTemplate repo to a directory
-        uses: actions/checkout@v3
-        with:
-          repository: AungThiha/KMPTemplate
-          ref: remove-firebase
-          fetch-depth: 1
-          path: ./KMPTemplate  # This will clone it into the "KMPTemplate" directory
 
       - name: Setup Java
         uses: actions/setup-java@v4
